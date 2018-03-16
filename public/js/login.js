@@ -9,9 +9,9 @@
 //                login is bad or redirect to /session.
 
 		$.ajax({
-            url: "/create",
+            url: "/login",
             type: "POST",
-            data: {username:$("#username").val()), password:$("#password").val()},
+            data: {username:$("#username").val(), password:$("#password").val()},
             success: function(data){
               if (!data)
                 alert("Login Invalid");
