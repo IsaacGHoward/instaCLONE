@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 
 router.get("/",function(request,response){
-	response.sendFile(__dirname + "/public/views/index.html");
+	response.sendFile(__dirname + "/public/views/profile.html");
 });
 
 
@@ -12,10 +12,17 @@ const myDatabase = require('./myDatabase');
 
 let db = new myDatabase();
 
+router.get("/feed", function(req,res){
+		res.sendFile(__dirname + "index.html");
+});
+router.get("/profile/:profilename", function(req,res){
+		res.sendFile(__dirname + "/public/views/profile.html");
+});
+
 //done add or modify.  Use getAllObjects.
 router.get('/read', function(req, res){
 	let names= db.getAllObjects();
-	res.json(names);	
+	res.json(names);
 });
 
 //done add or modify.  Use getObjectWithID and change index to ident.
@@ -54,4 +61,3 @@ router.delete('/delete/:ident', function(req, res){
 
 
 module.exports = router;
-
