@@ -28,7 +28,11 @@ router.get("/logout",function(req,res){
 	res.json({redirect:"/login"});
 });
 
+router.get('/sessionInfo', function(req,res){
+	console.log("SESSION INFO ACCESSED");
+	res.json(req.session_state.username);
 
+});
 router.get("/session",function(req,res){
 //add or modify.  Look at req.session_state.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
