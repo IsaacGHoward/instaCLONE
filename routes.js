@@ -33,7 +33,12 @@ router.get("/session",function(req,res){
 //add or modify.  Look at req.session_state.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
 //                else send back to the client login.html.
-
+		if(req.session_state.username)
+		{
+			res.sendFile(__dirname + "/public/views/session.html");	
+		}
+		else
+			res.sendFile(__dirname + "/public/views/session.html");	
 });
 
 router.get("/userInfo",function(req,res){
@@ -69,9 +74,10 @@ router.post('/login', function(req, res){
 		res.json(null);
 		return;
 		}
+		else{
 		req.session_state.username = req.body.username;
 		res.json({redirect:"/session"});
-		
+		}
 });
 
 
