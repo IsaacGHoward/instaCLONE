@@ -1,4 +1,4 @@
-	
+
 var express = require("express");
 var router = express.Router();
 var path = require("path");
@@ -6,50 +6,51 @@ var clientSessions = require('client-sessions');
 
 
 router.get("/signup",function(req,res){
-//add or modify.  Send back to the client signup.html.	
-	
+//add or modify.  Send back to the client signup.html.
+
 });
 
 
 router.get("/",function(req,res){
-//add or modify.  Send back to the client login.html.	
+//add or modify.  Send back to the client login.html.
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
 
 router.get("/login",function(req,res){
-//add or modify.  Send back to the client login.html.	
+//add or modify.  Send back to the client login.html.
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
 //add or modify.  Below is already done for you.
-router.get("/logout",function(req,res){	
+router.get("/logout",function(req,res){
 	req.session_state.reset();
 	res.json({redirect:"/login"});
-});	
+});
 
 
 router.get("/session",function(req,res){
 //add or modify.  Look at req.session_state.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
 //                else send back to the client login.html.
+		console.log(req.session_state.username + " is my username");
 		if(req.session_state.username)
 		{
-			res.sendFile(__dirname + "/public/views/session.html");	
+			res.sendFile(__dirname + "/public/views/session.html");
 		}
 		else
-			res.sendFile(__dirname + "/public/views/session.html");	
+			res.sendFile(__dirname + "/public/views/session.html");
 });
 
 router.get("/userInfo",function(req,res){
 //add or modify.  Look at req.session_state.??? to check if a session is active.
-//                If session is active then send back to client a json object 
+//                If session is active then send back to client a json object
 //                   with the user data.
 //                else send back a json object that is null.
 
 });
 
- 
+
 
 let userInfo = [];
 
@@ -80,7 +81,12 @@ router.post('/login', function(req, res){
 		}
 });
 
+router.get('/profile' , function(req,res){
+	console.log("PROFILE");
+	console.log(req.session_state.username + " is my username");
+
+})
+
 
 
 module.exports = router;
-
