@@ -18,24 +18,34 @@ myDatabase.prototype.getAllObjects = function() {
 	return(objs);
 }
 
-
 myDatabase.prototype.getAllUsernames = function() {
 	let usernames = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i]) {
-			names.push(this.infoList[i].username);
+			usernames.push(this.infoList[i].username);
 		}
 	}
-	return(names);
+	return(usernames);
 }
+
 myDatabase.prototype.getAllRealNames = function() {
 	let realNames = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i]) {
-			names.push(this.infoList[i].realname);
+			realNames.push(this.infoList[i].realname);
 		}
 	}
-	return(names);
+	return(realNames);
+}
+
+myDatabase.prototype.getAllAges = function() {
+	let ages = [];
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i]) {
+			ages.push(this.infoList[i].age);
+		}
+	}
+	return(ages);
 }
 
 myDatabase.prototype.getObjectAtIndex = function(index) {
@@ -50,9 +60,17 @@ myDatabase.prototype.getObjectAtIndex = function(index) {
 	}
 }
 
-myDatabase.prototype.getObjectWithID = function(ident) {
+myDatabase.prototype.getObjectWithRealName = function(realname) {
 	for (let i=0;i<this.infoList.length;i++) {
-		if (this.infoList[i] && ident == this.infoList[i].ident)
+		if (this.infoList[i] && realname == this.infoList[i].realname)
+			return (this.infoList[i]);
+	}
+	return (null);
+}
+
+myDatabase.prototype.getObjectWithUsername = function(username) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
 			return (this.infoList[i]);
 	}
 	return (null);
