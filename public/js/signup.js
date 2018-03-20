@@ -27,7 +27,6 @@
 
 
   		$(document).ready(function(){
-
 //.  Add code to call userClicked() when enter key is pressed
 //                for username and password text input.
 

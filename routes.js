@@ -2,12 +2,13 @@
 var express = require("express");
 var router = express.Router();
 var path = require("path");
+var myDatabase = require('./myDatabase');
 var clientSessions = require('client-sessions');
-
+var db = new myDatabase();
 
 router.get("/signup",function(req,res){
 //add or modify.  Send back to the client signup.html.
-
+res.sendFile(__dirname + "/public/views/signup.html");
 });
 
 
@@ -28,16 +29,11 @@ router.get("/logout",function(req,res){
 	res.json({redirect:"/login"});
 });
 
-router.get('/sessionInfo', function(req,res){
-	console.log("SESSION INFO ACCESSED");
-	res.json(req.session_state.username);
 
-});
 router.get("/session",function(req,res){
 //add or modify.  Look at req.session_state.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
 //                else send back to the client login.html.
-		console.log(req.session_state.username + " is my username");
 		if(req.session_state.username)
 		{
 			res.sendFile(__dirname + "/public/views/session.html");
@@ -64,7 +60,23 @@ router.post('/signup', function(req, res){
 //                  Give req.session_state.??? a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
+//eilise: link up to mydatabase module
+//add conditionals in login
 
+console.log("signup");
+if (req.body.username == "" || req.body.password == "") {
+res.json(null);
+return;
+}
+else{
+	userInfo.push({username:req.body.username, password:req.body.password})
+	db.addObject({username:req.body.username, password:req.body.password});
+	req.session_state.username = req.body.username;
+	req.session_state.password = req.body.password;
+	//eilise: not neccesary currently
+	//may come in handy later
+	res.json({redirect:"/login"});
+}
 });
 
 
@@ -74,22 +86,24 @@ router.post('/login', function(req, res){
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
-		console.log("We in here");
+		console.log("login");
 		if (req.body.username == "" || req.body.password == "") {
 		res.json(null);
 		return;
 		}
-		else{
-		req.session_state.username = req.body.username;
-		res.json({redirect:"/session"});
+	else {
+		for(var i = 0; i < userInfo.length; i++)
+		{
+ 				if(req.body.username == userInfo[i].username)
+				{
+					req.session_state.username = req.body.username;
+					res.json({redirect:"/session"});
+				}
 		}
+	}
+			res.json(null);
+
 });
-
-router.get('/profile' , function(req,res){
-	console.log("PROFILE");
-	console.log(req.session_state.username + " is my username");
-
-})
 
 
 
