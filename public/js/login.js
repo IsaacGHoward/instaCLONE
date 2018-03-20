@@ -1,7 +1,7 @@
 
 
 
- 		
+
   		function userClicked(){
 
 //.  Add a post request on path /login.  Pass the needed data
@@ -17,19 +17,19 @@
                 alert("Login Invalid");
               else
                window.location = data.redirect;
-            } ,     
+            } ,
             dataType: "json"
-            }); 
+            });
 
     			return false;
     		}
 
 
-  		$(document).ready(function(){ 
+  		$(document).ready(function(){
 
 //.  Add code to call userClicked() when enter key is pressed
 //                for username and password text input.
-			
+
 			$("#username").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -47,7 +47,4 @@
 
 
 
-  		});  		
-    
-
-
+  		});
