@@ -96,8 +96,11 @@ router.post('/login', function(req, res){
 		{
  				if(req.body.username == userInfo[i].username)
 				{
+					if(req.body.password == userInfo[i].password)
+					{
 					req.session_state.username = req.body.username;
 					res.json({redirect:"/session"});
+			  	}
 				}
 		}
 	}
