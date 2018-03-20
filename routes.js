@@ -8,7 +8,7 @@ var clientSessions = require('client-sessions');
 
 router.get("/signup",function(req,res){
 //add or modify.  Send back to the client signup.html.	
-	
+	res.sendFile(__dirname + "/public/views/signup.html");
 });
 
 
@@ -54,7 +54,7 @@ router.get("/userInfo",function(req,res){
 
  
 
-let userInfo = [];
+let users = [];
 
 router.post('/signup', function(req, res){
 //add or modify.  Check if a valid signup.  If the signup is valid,
@@ -62,6 +62,22 @@ router.post('/signup', function(req, res){
 //                  Give req.session_state.??? a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
+
+	let user = {username:req.body.username, password:req.body.password, 
+		realname:req.body.realname, age:req.body.age};
+
+	for (let i=0;i<users.length;i++) {
+		if (users[i] && user.username == users[i].username)
+			return (null);
+		}
+	users.push(user);
+	req.session_state.username = user.username;
+	req.session_state.password = user.password;
+	req.session_state.realname = user.realname;
+	req.session_state.age = user.age;
+	res.json({redirect:"/session"});
+
+
 
 });
 
