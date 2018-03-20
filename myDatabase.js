@@ -9,21 +9,30 @@ myDatabase.prototype.getArraySize = function() {
 
 //done add or modify.  Complete getAllObjects function.
 myDatabase.prototype.getAllObjects = function() {
-	let names = [];
+	let objs = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i]) {
-			names.push(this.infoList[i]);
+			objs.push(this.infoList[i]);
+		}
+	}
+	return(objs);
+}
+
+
+myDatabase.prototype.getAllUsernames = function() {
+	let usernames = [];
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i]) {
+			names.push(this.infoList[i].username);
 		}
 	}
 	return(names);
 }
-
-
-myDatabase.prototype.getAllNames = function() {
-	let names = [];
+myDatabase.prototype.getAllRealNames = function() {
+	let realNames = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i]) {
-			names.push(this.infoList[i].name);
+			names.push(this.infoList[i].realname);
 		}
 	}
 	return(names);
@@ -37,7 +46,7 @@ myDatabase.prototype.getObjectAtIndex = function(index) {
 			return(null);
 		} else {
 			return(this.infoList[index]);
-		}		
+		}
 	}
 }
 
@@ -53,7 +62,7 @@ myDatabase.prototype.addObjectAtIndex = function(obj,index) {
 	if (index < 0)
 		return (null);
 	if (index < this.infoList.length)
-	{		
+	{
 		if (!this.infoList[index]) {
 			this.infoList[index] = obj;
 			return (obj);
@@ -70,7 +79,7 @@ myDatabase.prototype.addObjectAtIndex = function(obj,index) {
 
 myDatabase.prototype.addObject = function(obj) {
 	for (let i=0;i<this.infoList.length;i++) {
-		if (this.infoList[i] && obj.ident == this.infoList[i].ident)
+		if (this.infoList[i] && obj.username == this.infoList[i].username)
 			return (null);
 	}
 	this.infoList.push(obj);
@@ -118,7 +127,7 @@ myDatabase.prototype.deleteObjectAtIndex = function(index) {
 //done add or modify.  Complete deleteObjectWithID function.
 myDatabase.prototype.deleteObjectWithID = function(ident) {
 	for (let i=0;i<this.infoList.length;i++) {
-		if (!this.infoList[i]) 
+		if (!this.infoList[i])
 			return(null);
 		if (this.infoList[i] && ident == this.infoList[i].ident)
 		{

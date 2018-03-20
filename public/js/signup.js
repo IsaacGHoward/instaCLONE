@@ -12,7 +12,7 @@
             url: "/signup",
             type: "POST",
             data: {username:$("#username").val(), password:$("#password").val(),
-            password2:$("#password2").val(), realname:$("#realname").val(), 
+            password2:$("#password2").val(), realname:$("#realname").val(),
             age:$("#age").val()},
             success: function(data){
 

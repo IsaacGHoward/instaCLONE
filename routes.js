@@ -5,15 +5,11 @@ var path = require("path");
 var myDatabase = require('./myDatabase');
 var clientSessions = require('client-sessions');
 var db = new myDatabase();
+console.log(db.getAllNames);
 
 router.get("/signup",function(req,res){
-//<<<<<<< HEAD
-//add or modify.  Send back to the client signup.html.
-	res.sendFile(__dirname + "/public/views/signup.html");
-//=======
 //add or modify.  Send back to the client signup.html.
 res.sendFile(__dirname + "/public/views/signup.html");
-//>>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
 });
 
 
@@ -57,7 +53,7 @@ router.get("/userInfo",function(req,res){
 
 
 
-let users = [];
+let userInfo = [];
 
 router.post('/signup', function(req, res){
 //add or modify.  Check if a valid signup.  If the signup is valid,
@@ -65,27 +61,6 @@ router.post('/signup', function(req, res){
 //                  Give req.session_state.??? a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
-//<<<<<<< HEAD
-
-	let user = {username:req.body.username, password:req.body.password,
-		realname:req.body.realname, age:req.body.age};
-
-	for (let i=0;i<users.length;i++) {
-		if (users[i] && user.username == users[i].username)
-			return (null);
-		}
-	users.push(user);
-	req.session_state.username = user.username;
-	req.session_state.password = user.password;
-	req.session_state.realname = user.realname;
-	req.session_state.age = user.age;
-	res.json({redirect:"/session"});
-
-
-
-//=======
-//eilise: link up to mydatabase module
-//add conditionals in login
 
 console.log("signup");
 if (req.body.username == "" || req.body.password == "") {
@@ -93,20 +68,20 @@ res.json(null);
 return;
 }
 else{
-	userInfo.push({username:req.body.username, password:req.body.password})
-	db.addObject({username:req.body.username, password:req.body.password});
+	userInfo.push({username:req.body.username, password:req.body.password, password2:req.body.password2, realname:req.body.realname, age:req.body.age})
+	db.addObject({username:req.body.username, password:req.body.password, password2:req.body.password2, realname:req.body.realname, age:req.body.age});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;
 	//eilise: not neccesary currently
 	//may come in handy later
 	res.json({redirect:"/login"});
 }
-//>>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
 });
 
 
 
 router.post('/login', function(req, res){
+	console.log(db.getAllObjects());
 //add or modify.  Determine if the login info is valid.  If the login is valid,
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
