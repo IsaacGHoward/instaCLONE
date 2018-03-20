@@ -107,12 +107,13 @@ myDatabase.prototype.addObject = function(obj) {
 
 
 
-myDatabase.prototype.changeObjectAtIndex = function(obj,index) {
-	if (index < 0 || index >= this.infoList.length)
-	if (!this.infoList[index])
+myDatabase.prototype.changeObjectWithRealName = function(obj,realname) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && obj.realname == this.infoList[i].realname)
+			this.infoList[i] = obj;
+			return (obj);
+	}
 		return (null);
-	this.infoList[index] = obj;
-	return (obj);
 }
 
 //done add or modify.  Complete changeObject function.
@@ -143,14 +144,14 @@ myDatabase.prototype.deleteObjectAtIndex = function(index) {
 
 
 //done add or modify.  Complete deleteObjectWithID function.
-myDatabase.prototype.deleteObjectWithID = function(ident) {
+myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (!this.infoList[i])
 			return(null);
-		if (this.infoList[i] && ident == this.infoList[i].ident)
+		if (this.infoList[i] && realname == this.infoList[i].realname)
 		{
 			this.infoList[i]=undefined;
-			return(ident);
+			return(realname);
 		}
 	}
 
