@@ -1,22 +1,51 @@
 
 
- 		
+
+
   		function userClicked(){
 
-//add or modify.  Add a post request on path /signup.  Pass the needed data
+//.  Add a post request on path /login.  Pass the needed data
 //                to the server and have the success callback either say
-//                signup is bad or redirect to /session.
+//                login is bad or redirect to /session.
 
-    			return false;
+		$.ajax({
+            url: "/signup",
+            type: "POST",
+            data: {username:$("#username").val(), password:$("#password").val()},
+            success: function(data){
+
+              if (!data)
+                alert("Sign Up Invalid");
+              else
+               window.location = data.redirect;
+            } ,
+            dataType: "json"
+            });
+
+   			return false;
     		}
 
 
-  		$(document).ready(function(){ 
+  		$(document).ready(function(){
 
-//add or modify.  Add code to call userClicked() when enter key is pressed
+//.  Add code to call userClicked() when enter key is pressed
 //                for username and password text input.
 
+			$("#username").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
+			$("#password").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
 
-  		});  		
-    
 
+
+  		});
