@@ -1,17 +1,30 @@
-
+	
 var express = require("express");
+var app = express();
 var router = express.Router();
+var path = require("path");
+var clientSessions = require('client-sessions');
 
+
+<<<<<<< HEAD
 router.get("/",function(request,response){
 	response.sendFile(__dirname + "/public/views/profile.html");
+=======
+router.get("/signup",function(req,res){
+//add or modify.  Send back to the client signup.html.	
+	
+>>>>>>> 61adf9c66bc999411b113a43644bdea28c883c1c
 });
 
 
-////////////////////////////////////////////////////
-const myDatabase = require('./myDatabase');
+router.get("/",function(req,res){
+//add or modify.  Send back to the client login.html.	
+	
+	res.sendFile(__dirname + "/public/views/login.html");
+});
 
-let db = new myDatabase();
 
+<<<<<<< HEAD
 router.get("/feed", function(req,res){
 		res.sendFile(__dirname + "index.html");
 });
@@ -23,40 +36,71 @@ router.get("/profile/:profilename", function(req,res){
 router.get('/read', function(req, res){
 	let names= db.getAllObjects();
 	res.json(names);
+=======
+router.get("/login",function(req,res){
+//add or modify.  Send back to the client login.html.	
+	res.sendFile(__dirname + "/public/views/login.html");
+>>>>>>> 61adf9c66bc999411b113a43644bdea28c883c1c
 });
 
-//done add or modify.  Use getObjectWithID and change index to ident.
-router.get('/read/:ident', function(req, res){
-	res.json(db.getObjectWithID(req.params.ident));
+//add or modify.  Below is already done for you.
+router.get("/logout",function(req,res){	
+	req.session_state.reset();
+	res.json({redirect:"/login"});
+});	
+
+
+router.get("/session",function(req,res){
+//add or modify.  Look at req.session_state.??? to check if a session is active.
+//                If session is active then send back to the client session.html.
+//                else send back to the client login.html.\
+		console.log(req.session_state.username);
+		if(req.session_state.username)
+		{
+			res.sendFile(__dirname + "/public/views/session.html");	
+		}
+		else
+			res.sendFile(__dirname + "/public/views/session.html");	
 });
 
-//done add or modify.  Use addObject and no need for index.
-//                ident should be part of object.
-router.post('/create', function(req, res){
-	if (req.body.name == "") {
+router.get("/userInfo",function(req,res){
+//add or modify.  Look at req.session_state.??? to check if a session is active.
+//                If session is active then send back to client a json object 
+//                   with the user data.
+//                else send back a json object that is null.
+
+});
+
+ 
+
+let userInfo = [];
+
+router.post('/signup', function(req, res){
+//add or modify.  Check if a valid signup.  If the signup is valid,
+//                  add user and password info to userInfo array.
+//                  Give req.session_state.??? a valid value.
+//                  Send back a json object of {redirect:"/session"}.
+//                else send back a json object that is null.
+
+});
+
+
+
+router.post('/login', function(req, res){
+//add or modify.  Determine if the login info is valid.  If the login is valid,
+//                  set req.session_state.??? to a valid value.
+//                  Send back a json object of {redirect:"/session"}.
+//                else send back a json object that is null.
+		console.log("We in here");
+		if (req.body.username == "" || req.body.password == "") {
 		res.json(null);
 		return;
-	}
-	let obj = {name:req.body.name, ident:req.body.ident};
-	res.json(db.addObject(obj));
+		}
+		else{
+		req.session_state.username = req.body.username;
+		res.json({redirect:"/session"});
+		}
 });
-
-//done add or modify.  Use changeObject and no need for index.
-//                ident should be part of object.
-router.put('/update', function(req, res){
-	if (req.body.name == "") {
-		res.json(null);
-		return;
-	}
-	let obj = {name:req.body.name, ident:req.body.ident};
-	res.json(db.changeObject(obj));
-});
-
-//done add or modify.  Use deleteObjectWithID and change index to ident.
-router.delete('/delete/:ident', function(req, res){
-	res.json(db.deleteObjectWithID(req.params.ident));
-});
-
 
 
 
