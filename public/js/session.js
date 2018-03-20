@@ -8,7 +8,10 @@ function logoutClicked(){
 }
 
 function sessionSuccess(user){
-	$('#username').html(user+"'s"+" profile");
+	$('#username').html(user.username+"'s"+" profile");
+	$('#name').html("Name: " + user.realname);
+	$('#age').html("DOB: " + user.age);
+	$('datejoined').html("Date Joined: " + user.sd);
 }
 
 $(document).ready(function(){

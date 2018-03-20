@@ -58,6 +58,10 @@ router.get("/userInfo",function(req,res){
 
 
 let users = [];
+router.get("/sessionInfo",function(req,res){
+
+		res.json({username : req.session_state.username , realname : req.session_state.realname, age : req.session_state.age , sd : req.session_state.datejoined})
+});
 
 router.post('/signup', function(req, res){
 //add or modify.  Check if a valid signup.  If the signup is valid,
@@ -68,7 +72,7 @@ router.post('/signup', function(req, res){
 //<<<<<<< HEAD
 
 	let user = {username:req.body.username, password:req.body.password,
-		realname:req.body.realname, age:req.body.age};
+		realname:req.body.realname, age:req.body.age , signupdate : new Date().toString()};
 
 	for (let i=0;i<users.length;i++) {
 		if (users[i] && user.username == users[i].username)
@@ -79,6 +83,7 @@ router.post('/signup', function(req, res){
 	req.session_state.password = user.password;
 	req.session_state.realname = user.realname;
 	req.session_state.age = user.age;
+	req.session_state.datejoined = user.signupdate;
 	res.json({redirect:"/session"});
 
 
