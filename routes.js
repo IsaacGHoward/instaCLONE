@@ -129,9 +129,6 @@ router.post('/signup', function(req, res){
 =======
 
 
-
-let userInfo = [];
-
 router.post('/signup', function(req, res){
 //add or modify.  Check if a valid signup.  If the signup is valid,
 //                  add user and password info to userInfo array.
@@ -145,8 +142,11 @@ res.json(null);
 return;
 }
 else{
-	userInfo.push({username:req.body.username, password:req.body.password, password2:req.body.password2, realname:req.body.realname, age:req.body.age})
-	db.addObject({username:req.body.username, password:req.body.password, password2:req.body.password2, realname:req.body.realname, age:req.body.age});
+	db.addObject({username:req.body.username,
+								password:req.body.password,
+								password2:req.body.password2, 
+								realname:req.body.realname,
+								age:req.body.age});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;
 	//eilise: not neccesary currently
@@ -158,7 +158,7 @@ else{
 
 
 router.post('/login', function(req, res){
-	console.log(db.getAllObjects());
+	let objs = db.getAllObjects();
 //add or modify.  Determine if the login info is valid.  If the login is valid,
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
@@ -169,11 +169,11 @@ router.post('/login', function(req, res){
 		return;
 		}
 	else {
-		for(var i = 0; i < userInfo.length; i++)
+		for(var i = 0; i < objs.length; i++)
 		{
- 				if(req.body.username == userInfo[i].username)
+ 				if(req.body.username == objs[i].username)
 				{
-					if(req.body.password == userInfo[i].password)
+					if(req.body.password == objs[i].password)
 					{
 					req.session_state.username = req.body.username;
 					res.json({redirect:"/session"});
