@@ -7,13 +7,13 @@ var clientSessions = require('client-sessions');
 var db = new myDatabase();
 
 router.get("/signup",function(req,res){
-<<<<<<< HEAD
-//add or modify.  Send back to the client signup.html.	
+//<<<<<<< HEAD
+//add or modify.  Send back to the client signup.html.
 	res.sendFile(__dirname + "/public/views/signup.html");
-=======
+//=======
 //add or modify.  Send back to the client signup.html.
 res.sendFile(__dirname + "/public/views/signup.html");
->>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
+//>>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
 });
 
 
@@ -65,9 +65,9 @@ router.post('/signup', function(req, res){
 //                  Give req.session_state.??? a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-	let user = {username:req.body.username, password:req.body.password, 
+	let user = {username:req.body.username, password:req.body.password,
 		realname:req.body.realname, age:req.body.age};
 
 	for (let i=0;i<users.length;i++) {
@@ -83,7 +83,7 @@ router.post('/signup', function(req, res){
 
 
 
-=======
+//=======
 //eilise: link up to mydatabase module
 //add conditionals in login
 
@@ -101,7 +101,7 @@ else{
 	//may come in handy later
 	res.json({redirect:"/login"});
 }
->>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
+//>>>>>>> 471e48602e8b1901740eac638e2b657a23dea5de
 });
 
 
