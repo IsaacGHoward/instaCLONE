@@ -1,27 +1,5 @@
 
 
-<<<<<<< HEAD
- 		
-  		function userClicked(){
-
-//add or modify.  Add a post request on path /signup.  Pass the needed data
-//                to the server and have the success callback either say
-//                signup is bad or redirect to /session.
-
-    			return false;
-    		}
-
-
-  		$(document).ready(function(){ 
-
-//add or modify.  Add code to call userClicked() when enter key is pressed
-//                for username and password text input.
-
-
-  		});  		
-    
-
-=======
 
 
   		function userClicked(){
@@ -71,4 +49,3 @@
 
 
   		});
->>>>>>> 61adf9c66bc999411b113a43644bdea28c883c1c
