@@ -11,13 +11,13 @@
 		$.ajax({
             url: "/signup",
             type: "POST",
-<<<<<<< HEAD
+
             data: {username:$("#username").val(), password:$("#password").val(),
             password2:$("#password2").val(), realname:$("#realname").val(),
             age:$("#age").val()},
 =======
             data: {username:$("#username").val(), password:$("#password").val()},
->>>>>>> 603f2351472d4b3ce5168f141bc8778d5e277c1e
+
             success: function(data){
 
               if (!data)
