@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 app.use('/', express.static('./'));
 app.use('/js', express.static('./public/js'));
-
+app.use(express.static('./public/views'));
 
 app.use(clientSessions({
   secret: 'RandOM Seed FOr "ENcryption" 135155' // CHANGE THIS!
