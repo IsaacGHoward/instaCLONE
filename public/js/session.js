@@ -15,7 +15,7 @@ function sessionSuccess(user){
 }
 
 $(document).ready(function(){
-	$.get('/sessionInfo',null,sessionSuccess)
+	$.get('/userInfo',null,sessionSuccess)
 
 //add or modify.  Do a get request on /userInfo to get user session data
 //                about the currently logged in user.  Use that data to
