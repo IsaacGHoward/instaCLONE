@@ -98,8 +98,14 @@ router.post('/login', function(req, res){
 		return;
 		}
 	else {
+
+		console.log(req.body.username);
+			console.log(req.body.password);
+
 		for(var i = 0; i < objs.length; i++)
 		{
+			console.log(objs[i]);
+			
  				if(req.body.username == objs[i].username)
 				{
 					if(req.body.password == objs[i].password)
