@@ -15,6 +15,7 @@
             data: {username:$("#username").val(), password:$("#password").val(),
             password2:$("#password2").val(), realname:$("#realname").val(),
             age:$("#age").val()},
+
             data: {username:$("#username").val(), password:$("#password").val()},
 
             success: function(data){
@@ -36,21 +37,44 @@
 //.  Add code to call userClicked() when enter key is pressed
 //                for username and password text input.
 
-			$("#username").keydown( function( event ) {
+		$("#username").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
               event.preventDefault();
               return false;
             }
         });
-			$("#password").keydown( function( event ) {
+		$("#password").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
               event.preventDefault();
               return false;
             }
         });
-
+      $("#password2").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
+     $("#realname").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
+      $("#age").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
+      $("#submit").click(function(){
+         userClicked();
+      }); 
 
 
   		});
