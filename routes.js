@@ -65,8 +65,7 @@ router.post('/signup', function(req, res){
 
 console.log("signup");
 if (req.body.username == ""
- || req.body.password == ""
- || req.body.password != req.body.password2) {
+ || req.body.password == "") {
 		res.json(null);
 		return;
 }
@@ -80,6 +79,7 @@ else{
 	req.session_state.password = req.body.password;
 	req.session_state.realname = req.body.realname;
 	req.session_state.age = req.body.age;
+	db.getObjectWithUsername(req.body.username);
 	res.json({redirect:"/login"});
 }
 });
@@ -92,6 +92,7 @@ router.post('/login', function(req, res){
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
+		console.log(objs);
 		console.log("login");
 		if (req.body.username == "" || req.body.password == "") {
 				res.json(null);
@@ -105,7 +106,7 @@ router.post('/login', function(req, res){
 		for(var i = 0; i < objs.length; i++)
 		{
 			console.log(objs[i]);
-			
+
  				if(req.body.username == objs[i].username)
 				{
 					if(req.body.password == objs[i].password)
