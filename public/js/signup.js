@@ -15,10 +15,6 @@
             data: {username:$("#username").val(), password:$("#password").val(),
             password2:$("#password2").val(), realname:$("#realname").val(),
             age:$("#age").val()},
-<<<<<<< HEAD
-=======
-
->>>>>>> dfe2da717431c01a9ed797cb0a46676072660b85
             data: {username:$("#username").val(), password:$("#password").val()},
 
             success: function(data){
