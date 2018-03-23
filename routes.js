@@ -22,6 +22,10 @@ router.get("/",function(req,res){
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
 });
+router.get("/explore",function(req,res){
+	console.log("OPEN EXPLORE");
+	res.sendFile(__dirname + "/public/views/mainpages/html/explore.html");
+});
 
 router.get("/logout",function(req,res){
 	req.session_state.reset();

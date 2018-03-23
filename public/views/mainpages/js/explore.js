@@ -10,5 +10,5 @@ function sessionSuccess(user){
 }
 
 $(document).ready(function(){
-	$.get('/sessionInfo',null,sessionSuccess)
+	//$.get('/userInfo',null,sessionSuccess)
 });

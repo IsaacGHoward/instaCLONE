@@ -13,9 +13,14 @@ function sessionSuccess(user){
 	$('#age').html("DOB: " + user.age);
 	$('datejoined').html("Date Joined: " + user.sd);
 }
+function openExplore(){
+	console.log("OPEN EXPLORE");
+	$.get('/explore',null,null);
+}
 
 $(document).ready(function(){
-	$.get('/userInfo',null,sessionSuccess)
+	$.get('/userInfo',null,sessionSuccess);
+	$("#explore").click(openExplore);
 
 //add or modify.  Do a get request on /userInfo to get user session data
 //                about the currently logged in user.  Use that data to
