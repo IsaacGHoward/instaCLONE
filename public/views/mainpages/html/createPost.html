@@ -45,29 +45,28 @@ body {
 
     <div class="topnav" style="text-align:center;font-size:17px;">
 
-        <a href="../mainpages/html/feed.html">Feed</a>
-        <a href="../mainpages/html/explore.html" id="explore">Explore</a>
-        <a href="../mainpages/html/search.html">Search</a>
-        <a class="active" href="">Profile</a>
+        <a href="./feed.html">Feed</a>
+        <a href="./explore.html">Explore</a>
+        <a href="#search">Search</a>
+        <a class="active" href="../../../session.html">Profile</a>
       </div>
-    <div id="profiledesc" style="text-align:center;font-size:17px;">
-    	<h3 id = "username">Username's Profile</h3>
-       <div id = "name">Name:</div>
-       <div id = "datejoined">Date Joined:</div>
-       <div id = "age">Age:</div>
-       <br>
-       <button id = "newPost" onclick="location.href='../mainpages/html/createPost.html';">NEW POST</button>
+    <div id="newPostForm" style="text-align:center;font-size:17px;">
+      <form action=""> <!-- add code to process image, and go back to profile -->
+        <input type="file" name="pic" accept="image/*">
+        <br>
+        Caption : <input type="text" name="caption">
+        <input type="submit">
+      </form>
     </div>
 
 
-  	<h3 style="text-align:center;font-size:17px;">Posts: </h3>
-    <ul id="postlist"></ul>
+
 
 
 
   <ul id="list"></ul>
 
-	<script src="../js/session.js"></script>
+	<script src="../js/createPost.js"></script>
 
   </body>
 </html>
