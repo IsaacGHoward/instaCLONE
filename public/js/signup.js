@@ -15,9 +15,6 @@
             data: {username:$("#username").val(), password:$("#password").val(),
             password2:$("#password2").val(), realname:$("#realname").val(),
             age:$("#age").val()},
-
-            data: {username:$("#username").val(), password:$("#password").val()},
-
             success: function(data){
 
               if (!data)
@@ -74,7 +71,7 @@
         });
       $("#submit").click(function(){
          userClicked();
-      }); 
+      });
 
 
   		});

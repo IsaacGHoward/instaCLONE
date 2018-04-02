@@ -45,18 +45,21 @@ body {
 
     <div class="topnav" style="text-align:center;font-size:17px;">
 
-        <a href="../mainpages/html/feed.html">Feed</a>
-        <a href="../mainpages/html/explore.html" id="explore">Explore</a>
-        <a href="../mainpages/html/search.html">Search</a>
-        <a class="active" href="">Profile</a>
+        <a href="#feed">Feed</a>
+        <a href="#explore">Explore</a>
+        <a href="#search">Search</a>
+        <a class="active" href="#profile">Profile</a>
       </div>
     <div id="profiledesc" style="text-align:center;font-size:17px;">
-    	<h3 id = "username">Username's Profile</h3>
+    	<h3 id = "username">Usernames's Profile</h3>
        <div id = "name">Name:</div>
        <div id = "datejoined">Date Joined:</div>
        <div id = "age">Age:</div>
     </div>
-
+    <form action="fileupload" method="post" enctype="multipart/form-data">
+      <input id="fileStuff" type="file" name="filetoupload"><br>
+      <input type="submit">
+    </form>
 
   	<h3 style="text-align:center;font-size:17px;">Posts: </h3>
     <ul id="postlist"></ul>
@@ -65,7 +68,7 @@ body {
 
   <ul id="list"></ul>
 
-	<script src="../js/session.js"></script>
+	<script src="js/session.js"></script>
 
   </body>
 </html>
