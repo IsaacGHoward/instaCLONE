@@ -75,8 +75,8 @@ else{
 	db.addObject({username:req.body.username,
 								password:req.body.password,
 								realname:req.body.realname,
-								age:req.body.age
-							 // postObjects:
+								age:req.body.age,
+							  postObjects: []
 						 		});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;

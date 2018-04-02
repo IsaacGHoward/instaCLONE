@@ -1,6 +1,11 @@
 
 let myDatabase = function() {
 	this.infoList = [];
+	createAdmin();
+}
+myDatabase.prototype.createAdmin = function() {
+	return this.infoList.push({"username" : "admin",
+														"password" : "password"});
 }
 
 myDatabase.prototype.getArraySize = function() {
@@ -102,6 +107,37 @@ myDatabase.prototype.addObject = function(obj) {
 	}
 	this.infoList.push(obj);
 	return (obj);
+}
+
+myDatabase.prototype.postWithUsername = function(username, postObject) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+		{
+			//this.infoList[i].postObjects.push(postObject);
+			this.infoList[i].postObjects.push(postObject);
+			return(this.infoList[i].postObjects[i]);
+		}
+	}
+	return (null);
+}
+myDatabase.prototype.postWithRealname = function(realname, postObject) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && realname == this.infoList[i].realname)
+			this.infoList[i].postObjects.push(postObject);
+
+	}
+	return (null);
+}
+myDatabase.prototype.getPostWithUsername = function(username) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+			return(this.infoList[i].postObjects);
+
+	}
+	return (null);
 }
 
 
