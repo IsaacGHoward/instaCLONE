@@ -1,12 +1,18 @@
+var storage = require('node-persist');
+var myStorage = storage.create({"username" : "admin",
+																"password" : "password"});
+myStorage.initSync();
+
+
 
 let myDatabase = function() {
-	this.infoList = [];
-	this.createAdmin();
+	this.infoList = myStorage.values();
+//	this.createAdmin();
 }
-myDatabase.prototype.createAdmin = function() {
-	return this.infoList.push({"username" : "admin",
-														"password" : "password"});
-}
+//myDatabase.prototype.createAdmin = function() {
+//	return this.infoList.push({"username" : "admin",
+//														"password" : "password"});
+//}
 
 myDatabase.prototype.getArraySize = function() {
 	return this.infoList.length;
@@ -106,6 +112,9 @@ myDatabase.prototype.addObject = function(obj) {
 			return (null);
 	}
 	this.infoList.push(obj);
+	storage.initSync();
+	storage.setItemSync('name','yourname');
+	console.log(storage.getItemSync('name'));
 	return (obj);
 }
 
@@ -154,7 +163,7 @@ myDatabase.prototype.getPostWithUsername = function(username, label) {
 	return (null);
 }
 
-myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
+myDatabase.prototype.deletePostWithUsernameAndLabel = function(username, label) {
 	if (label < 0 || label >= this.infoList.length) {
 		return(null);
 	} else {
@@ -182,8 +191,10 @@ myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
 myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && obj.realname == this.infoList[i].realname)
+		{
 			this.infoList[i] = obj;
 			return (obj);
+		}
 	}
 		return (null);
 }
