@@ -1,6 +1,11 @@
 
 let myDatabase = function() {
 	this.infoList = [];
+	this.createAdmin();
+}
+myDatabase.prototype.createAdmin = function() {
+	return this.infoList.push({"username" : "admin",
+														"password" : "password"});
 }
 
 myDatabase.prototype.getArraySize = function() {
@@ -104,10 +109,77 @@ myDatabase.prototype.addObject = function(obj) {
 	return (obj);
 }
 
+myDatabase.prototype.postWithUsername = function(username, postObject) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+		{
+			//this.infoList[i].postObjects.push(postObject);
+			this.infoList[i].postObjects.push(postObject);
+			return(this.infoList[i].postObjects[i]);
+		}
+	}
+	return (null);
+}
+myDatabase.prototype.postWithRealname = function(realname, postObject) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && realname == this.infoList[i].realname)
+			this.infoList[i].postObjects.push(postObject);
+
+	}
+	return (null);
+}
+
+myDatabase.prototype.getAllPostsWithUsername = function(username) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+					return(this.infoList[i].postObjects);
+	}
+	return (null);
+}
+myDatabase.prototype.getPostWithUsername = function(username, label) {
+
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+				{
+					for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+						if (this.infoList[i].postObjects[j] && label == this.infoList[i].postObjects[j].label)
+							return(this.infoList[i].postObjects[j]);
+						}
+				}
+
+	}
+	return (null);
+}
+
+myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
+	if (label < 0 || label >= this.infoList.length) {
+		return(null);
+	} else {
+		for (let i=0;i<this.infoList.length;i++) {
+			if (this.infoList[i] && username == this.infoList[i].username)
+					{
+						for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+							if (this.infoList[i].postObjects[j] && label == this.infoList[i].postObjects[j].label)
+								{
+								let obj = this.infoList[i].postObjects[j];
+								this.infoList[i].postObjects[j] = undefined;
+								return(obj);
+								}
+							}
+					}
+
+		}
+	}
+}
 
 
 
-myDatabase.prototype.changeObjectWithRealName = function(obj,realname) {
+
+
+myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && obj.realname == this.infoList[i].realname)
 			this.infoList[i] = obj;
@@ -128,19 +200,6 @@ myDatabase.prototype.changeObject = function(obj) {
 	return (null);
 }
 
-myDatabase.prototype.deleteObjectAtIndex = function(index) {
-	if (index < 0 || index >= this.infoList.length) {
-		return(null);
-	} else {
-		if (!this.infoList[index]) {
-			return(null);
-		} else {
-			let obj = this.infoList[index];
-			this.infoList[index] = undefined;
-			return(obj);
-		}
-	}
-}
 
 
 //done add or modify.  Complete deleteObjectWithID function.

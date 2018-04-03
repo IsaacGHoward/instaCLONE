@@ -4,6 +4,8 @@ var router = express.Router();
 var path = require("path");
 var myDatabase = require('./myDatabase');
 var clientSessions = require('client-sessions');
+var formidable = require('formidable');
+var fs = require('fs');
 var db = new myDatabase();
 
 
@@ -21,10 +23,6 @@ router.get("/",function(req,res){
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
-});
-router.get("/explore",function(req,res){
-	console.log("OPEN EXPLORE");
-	res.sendFile(__dirname + "/public/views/mainpages/html/explore.html");
 });
 
 router.get("/logout",function(req,res){
@@ -76,14 +74,15 @@ if (req.body.username == ""
 else{
 	db.addObject({username:req.body.username,
 								password:req.body.password,
-								password2:req.body.password2,
 								realname:req.body.realname,
-								age:req.body.age});
+								age:req.body.age,
+							  postObjects: []
+						 		});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;
 	req.session_state.realname = req.body.realname;
 	req.session_state.age = req.body.age;
-	db.getObjectWithUsername(req.body.username);
+	console.log(db.getObjectWithUsername(req.body.username));
 	res.json({redirect:"/login"});
 }
 });
@@ -91,22 +90,18 @@ else{
 
 
 router.post('/login', function(req, res){
+	console.log("login");
 	let objs = db.getAllObjects();
 //add or modify.  Determine if the login info is valid.  If the login is valid,
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
-//                else send back a json object that is null.
-		console.log(objs);
-		console.log("login");
+//                else send back a json object that is null
+
 		if (req.body.username == "" || req.body.password == "") {
 				res.json(null);
 		return;
 		}
 	else {
-
-		console.log(req.body.username);
-			console.log(req.body.password);
-
 		for(var i = 0; i < objs.length; i++)
 		{
 			console.log(objs[i]);
@@ -122,6 +117,17 @@ router.post('/login', function(req, res){
 		}
 	}
 			res.json(null);
+
+});
+router.get("/postPicture",function(req,res){
+	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
+	//and specify its "label"
+if(req.session_state.username)
+{
+	res.json(db.getObjectWithUsername(req.session_state.username));
+}
+else
+		res.json(null);
 
 });
 
