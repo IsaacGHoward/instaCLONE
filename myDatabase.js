@@ -113,8 +113,8 @@ myDatabase.prototype.addObject = function(obj) {
 	}
 	this.infoList.push(obj);
 	storage.initSync();
-	storage.setItemSync('name','yourname');
-	console.log(storage.getItemSync('name'));
+	//storage.setItemSync('name','yourname');
+	//console.log(storage.getItemSync('name'));
 	return (obj);
 }
 
