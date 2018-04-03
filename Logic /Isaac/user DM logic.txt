@@ -1,0 +1,27 @@
+For DMs:
+
+-use database to get name of person to chat with
+-each client is continuously checking for new messages with a specific user when they are in the dms with that user (maybe once a second, who knows)
+-When YOU open dms for first time with a FRIEND : add friend's object to the list of users in YOUR userMsgHist object
+ -Add message to YOUR message history list in your userMsgHist object, which will include timestamp of when it was sent, the message itself, and the person it is being sent to
+ -On the FRIEND'S client, be checking for new message by checking the user you are chatting with's userMsgHist for a new message to be added
+  -If the new message has FRIEND'S username
+   -Add message to display in html
+  -Else: Ignore
+-When loading dms up that have previously been sent to FRIEND
+ -look through all of the FRIEND'S previously sent messages, looking for ones with YOUR name, add them to a list
+ -Also look thru all of YOUR messages to FRIEND, add these messages to list
+ -Organize all the messages in list by timestamp, and display in html
+
+userMsgHist object is an object that keep track of all messages that a user has sent to all other users
+should be a part of each user? I think, not sure how database works though. But it should be able to be obtained by accessing the database
+
+userMsgHist objects for each user (1 for each)
+each userMsgHist object has:
+-list of user objects : users -- users that the user has sent messages to
+-list of message objects: history --> the messages
+
+each message object has:
+-user object : recipient --> the person recieving the message
+-message string : message --> the message
+-timestamp string : timestamp --> time message was sent

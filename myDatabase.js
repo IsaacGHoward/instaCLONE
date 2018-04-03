@@ -1,7 +1,7 @@
 
 let myDatabase = function() {
 	this.infoList = [];
-	createAdmin();
+	//createAdmin();
 }
 myDatabase.prototype.createAdmin = function() {
 	return this.infoList.push({"username" : "admin",
