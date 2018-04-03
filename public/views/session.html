@@ -45,10 +45,10 @@ body {
 
     <div class="topnav" style="text-align:center;font-size:17px;">
 
-        <a href="#feed">Feed</a>
-        <a href="#explore">Explore</a>
-        <a href="#search">Search</a>
-        <a class="active" href="#profile">Profile</a>
+         <a href="../mainpages/html/feed.html">Feed</a>
+         <a href="../mainpages/html/explore.html" id="explore">Explore</a>
+         <a href="../mainpages/html/search.html">Search</a>
+         <a class="active" href="">Profile</a>
       </div>
     <div id="profiledesc" style="text-align:center;font-size:17px;">
     	<h3 id = "username">Usernames's Profile</h3>
@@ -58,10 +58,7 @@ body {
        <br>
        <button id = "newPost" onclick="location.href='../mainpages/html/createPost.html';">NEW POST</button>
     </div>
-    <form action="fileupload" method="post" enctype="multipart/form-data">
-      <input id="fileStuff" type="file" name="filetoupload"><br>
-      <input type="submit">
-    </form>
+    
 
   	<h3 style="text-align:center;font-size:17px;">Posts: </h3>
     <ul id="postlist"></ul>
