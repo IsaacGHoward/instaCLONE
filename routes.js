@@ -121,13 +121,37 @@ router.post('/login', function(req, res){
 router.get("/postPicture",function(req,res){
 	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
 	//and specify its "label"
-if(req.session_state.username)
-{
-	res.json(db.getObjectWithUsername(req.session_state.username));
-}
-else
-		res.json(null);
+	console.log('we here');
 
+res.sendFile(__dirname + "/public/views/mainpages/html/createPost.html");
+
+});
+
+router.post("/submitPost",function(req,res){
+
+	console.log('we here in submit post');
+	console.log("upload");
+
+		res.json({});
+
+
+});
+
+router.post('/fileupload', function(req, res){
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.filetoupload.path;
+      var newpath = __dirname + '/public/images/' + files.filetoupload.name;
+
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+
+console.log("fileupload " + files.filetoupload.name);
+
+	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
+      });
+    });
 });
 
 
