@@ -95,18 +95,13 @@ router.post('/login', function(req, res){
 //add or modify.  Determine if the login info is valid.  If the login is valid,
 //                  set req.session_state.??? to a valid value.
 //                  Send back a json object of {redirect:"/session"}.
-//                else send back a json object that is null.
-		console.log(objs);
+//                else send back a json object that is null
 
 		if (req.body.username == "" || req.body.password == "") {
 				res.json(null);
 		return;
 		}
 	else {
-
-		console.log(req.body.username);
-			console.log(req.body.password);
-
 		for(var i = 0; i < objs.length; i++)
 		{
 			console.log(objs[i]);
@@ -125,6 +120,8 @@ router.post('/login', function(req, res){
 
 });
 router.get("/postPicture",function(req,res){
+	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
+	//and specify its "label"
 if(req.session_state.username)
 {
 	res.json(db.getObjectWithUsername(req.session_state.username));
