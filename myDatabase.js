@@ -1,18 +1,18 @@
 var storage = require('node-persist');
 var myStorage = storage.create({"username" : "admin",
 																"password" : "password"});
-myStorage.initSync();
+storage.initSync();
 
 
 
 let myDatabase = function() {
-	this.infoList = myStorage.values();
+	this.infoList = storage.getItemSync("myStorage");
 //	this.createAdmin();
 }
-//myDatabase.prototype.createAdmin = function() {
-//	return this.infoList.push({"username" : "admin",
-//														"password" : "password"});
-//}
+myDatabase.prototype.createAdmin = function() {
+	return this.infoList.push({"username" : "admin",
+														"password" : "password"});
+}
 
 myDatabase.prototype.getArraySize = function() {
 	return this.infoList.length;
@@ -112,9 +112,8 @@ myDatabase.prototype.addObject = function(obj) {
 			return (null);
 	}
 	this.infoList.push(obj);
+	storage.setItemSync("myStorage", this.infoList);
 	storage.initSync();
-	//storage.setItemSync('name','yourname');
-	//console.log(storage.getItemSync('name'));
 	return (obj);
 }
 
@@ -123,8 +122,8 @@ myDatabase.prototype.postWithUsername = function(username, postObject) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
 		{
-			//this.infoList[i].postObjects.push(postObject);
 			this.infoList[i].postObjects.push(postObject);
+			storage.setItemSync("myStorage", this.infoList);
 			return(this.infoList[i].postObjects[i]);
 		}
 	}
@@ -135,6 +134,8 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && realname == this.infoList[i].realname)
 			this.infoList[i].postObjects.push(postObject);
+				storage.setItemSync("myStorage", this.infoList);
+				return(postObject);
 
 	}
 	return (null);
@@ -175,6 +176,7 @@ myDatabase.prototype.deletePostWithUsernameAndLabel = function(username, label) 
 								{
 								let obj = this.infoList[i].postObjects[j];
 								this.infoList[i].postObjects[j] = undefined;
+								storage.setItemSync("myStorage", this.infoList);
 								return(obj);
 								}
 							}
@@ -193,6 +195,7 @@ myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 		if (this.infoList[i] && obj.realname == this.infoList[i].realname)
 		{
 			this.infoList[i] = obj;
+			storage.setItemSync("myStorage", this.infoList);
 			return (obj);
 		}
 	}
@@ -205,6 +208,7 @@ myDatabase.prototype.changeObject = function(obj) {
 		if (this.infoList[i] && obj.ident == this.infoList[i].ident)
 		{
 			this.infoList[i]=obj;
+			storage.setItemSync("myStorage", this.infoList);
 			return(obj);
 		}
 	}
@@ -221,6 +225,7 @@ myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 		if (this.infoList[i] && realname == this.infoList[i].realname)
 		{
 			this.infoList[i]=undefined;
+			storage.setItemSync("myStorage", this.infoList);
 			return(realname);
 		}
 	}
