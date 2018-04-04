@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- add or modify.  Change index to ident.  -->
+<html>
+  <head>
+    <title>Profile</title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+
+  <body>
+
+
+
+
+    <div class="topnav" style="text-align:center;font-size:17px;">
+
+        <a href="./feed.html">Feed</a>
+        <a href="./explore.html">Explore</a>
+        <a href="#search">Search</a>
+        <a class="active" href="../../../session.html">Profile</a>
+      </div>
+    <div id="newPostForm" style="text-align:center;font-size:17px;">
+      <form action=""> <!-- add code to process image, and go back to profile -->
+        <input type="file" name="pic" accept="image/*">
+        <br>
+        Caption : <input type="text" name="caption">
+        <input type="submit">
+      </form>
+    </div>
+
+
+
+
+
+
+  <ul id="list"></ul>
+
+	<script src="../js/createPost.js"></script>
+
+  </body>
+</html>
