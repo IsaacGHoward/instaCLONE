@@ -1,7 +1,14 @@
+var storage = require('node-persist');
+var myStorage = storage.create({"username" : "admin",
+			 													"password" : "password"});
+myStorage.initSync();
+storage.initSync();
 
 let myDatabase = function() {
-	this.infoList = [];
-	this.createAdmin();
+
+	this.infoList = storage.getItemSync("myStorage");
+
+
 }
 myDatabase.prototype.createAdmin = function() {
 	return this.infoList.push({"username" : "admin",
@@ -106,6 +113,8 @@ myDatabase.prototype.addObject = function(obj) {
 			return (null);
 	}
 	this.infoList.push(obj);
+	storage.setItemSync("myStorage", this.infoList);
+	storage.initSync();
 	return (obj);
 }
 

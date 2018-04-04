@@ -16,6 +16,7 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
+
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
