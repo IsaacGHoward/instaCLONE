@@ -51,8 +51,9 @@ body {
         <a class="active" href="../../../session.html">Profile</a>
       </div>
     <div id="newPostForm" style="text-align:center;font-size:17px;">
-      <form action=""> <!-- add code to process image, and go back to profile -->
-        <input type="file" name="pic" accept="image/*">
+      <form action="fileupload" method="post" enctype="multipart/form-data"> <!-- add code to process image, and go back to profile -->
+    <!--    <input type="file" name="pic" accept="image/*">1 -->
+         <input id="fileStuff" type="file" name="filetoupload">
         <br>
         Caption : <input type="text" name="caption">
         <input type="submit">
@@ -66,7 +67,7 @@ body {
 
   <ul id="list"></ul>
 
-	<script src="../js/createPost.js"></script>
+  <script src="../js/createPost.js"></script>
 
   </body>
 </html>
