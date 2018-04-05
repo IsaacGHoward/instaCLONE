@@ -16,13 +16,17 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
-
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
+});
+
+router.get("/userList",function(req,res){
+	console.log(inRoutes);
+	res.json(db.getAllUsernames);
 });
 
 router.get("/logout",function(req,res){
