@@ -16,6 +16,7 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
+
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
@@ -63,7 +64,12 @@ router.post('/signup', function(req, res){
 //                  Give req.session_state.??? a valid value.
 //                  Send back a json object of {redirect:"/session"}.
 //                else send back a json object that is null.
-
+let usernames = db.getAllUsernames();
+for (let i=0;i<usernames.length;i++) {
+	if (usernames[i] == req.body.username) {
+		res.json(null);
+	}
+}
 console.log("signup");
 if (req.body.username == ""
  || req.body.password == "") {
@@ -75,7 +81,9 @@ else{
 								password:req.body.password,
 								realname:req.body.realname,
 								age:req.body.age,
-							  postObjects: []
+							  postObjects:[],
+								friendList:[],
+								userMsgHist : []
 						 		});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;
