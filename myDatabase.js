@@ -1,5 +1,5 @@
 ///Eilise
-//When we send a message, we have to store the timestamp and who it was sent // TODO:
+//When we send a message, we have to store the timestamp and who it was sent //
 //basically the whole message has to be object with who it was sent to and the timestamp
 
 
