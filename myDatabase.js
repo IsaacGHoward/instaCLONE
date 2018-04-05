@@ -1,5 +1,5 @@
 ///Eilise
-//When we send a message, we have to store the timestamp and who it was sent //
+//When we send a message, we have to store the timestamp and who it was sent to//
 //basically the whole message has to be object with who it was sent to and the timestamp
 
 
@@ -146,7 +146,15 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 	}
 	return (null);
 }
-
+myDatabase.prototype.getAllPosts = function() {
+let posts = [];
+	for (let i=0;i<this.infoList.length;i++) {
+		for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+					posts.push(this.infoList[i].postObjects[i]);
+			}
+	}
+	return (posts);
+}
 myDatabase.prototype.getAllPostsWithUsername = function(username) {
 
 	for (let i=0;i<this.infoList.length;i++) {
@@ -279,6 +287,8 @@ myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 		if (this.infoList[i] && realname == this.infoList[i].realname)
 		{
 			this.infoList[i]=undefined;
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
 			return(realname);
 		}
 	}
