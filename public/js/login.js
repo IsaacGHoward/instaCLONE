@@ -44,6 +44,9 @@
               return false;
             }
         });
+        $("#submit").click(function(){
+           userClicked();
+        });
 
 
 
