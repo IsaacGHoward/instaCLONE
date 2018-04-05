@@ -155,6 +155,28 @@ let posts = [];
 	}
 	return (posts);
 }
+myDatabase.prototype.getAllPostsofFriends = function(username) {
+let posts = [];
+let friends = [];
+	for (let i=0;i<this.infoList.length;i++) {
+		if(this.infoList[i] && username == this.infoList[i].username)
+		{
+			for (let j=0;j<this.infoList[i].friendList.length;j++) {
+						friends.push(this.infoList[i].friendList[j]);
+				}
+		}
+	}
+	for (let k=0;k<this.infoList.length;k++) {
+		for (let h=0;h<this.friends.length;h++) {
+		if(this.infoList[k] && friends[h].username == this.infoList[k].username)
+		{
+						posts.push(this.infoList[k].postObjects[j]);
+		}
+	}
+	}
+
+	return (posts);
+}
 myDatabase.prototype.getAllPostsWithUsername = function(username) {
 
 	for (let i=0;i<this.infoList.length;i++) {
