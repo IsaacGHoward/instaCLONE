@@ -76,7 +76,9 @@ else{
 								password:req.body.password,
 								realname:req.body.realname,
 								age:req.body.age,
-							  postObjects: []
+							  postObjects:[],
+								friendList:[],
+								userMsgHist : []
 						 		});
 	req.session_state.username = req.body.username;
 	req.session_state.password = req.body.password;

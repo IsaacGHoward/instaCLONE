@@ -1,3 +1,10 @@
+///Eilise
+//When we send a message, we have to store the timestamp and who it was sent // TODO:
+//basically the whole message has to be object with who it was sent to and the timestamp
+
+
+
+
 var storage = require('node-persist');
 var myStorage = storage.create({"username" : "admin",
 			 													"password" : "password"});
@@ -186,7 +193,14 @@ myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
 
 
 
-
+myDatabase.prototype.changeObjectWithUsername = function(obj,  username) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && obj.username == this.infoList[i].username)
+			this.infoList[i] = obj;
+			return (obj);
+	}
+		return (null);
+}
 
 myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 	for (let i=0;i<this.infoList.length;i++) {
@@ -200,7 +214,7 @@ myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 //done add or modify.  Complete changeObject function.
 myDatabase.prototype.changeObject = function(obj) {
 	for (let i=0;i<this.infoList.length;i++) {
-		if (this.infoList[i] && obj.ident == this.infoList[i].ident)
+		if (this.infoList[i] && obj.username == this.infoList[i].username)
 		{
 			this.infoList[i]=obj;
 			return(obj);
@@ -208,6 +222,52 @@ myDatabase.prototype.changeObject = function(obj) {
 	}
 	return (null);
 }
+
+
+	myDatabase.prototype.addNewMsgToMsgHist = function(username,message) {
+		for (let i=0;i<this.infoList.length;i++) {
+			if (this.infoList[i] && username == this.infoList[i].username)
+			{
+				this.infoList[i].userMsgHist.push(message);
+				return(this.infoList[i]);
+			}
+		}
+		return (null);
+	}
+	myDatabase.prototype.getUserMsgHistory = function(username) {
+		for (let i=0;i<this.infoList.length;i++) {
+			if (this.infoList[i] && username == this.infoList[i].username)
+			{
+				return(this.infoList[i].userMsgHist);
+			}
+		}
+		return (null);
+	}
+	myDatabase.prototype.getAllMessagesToUser = function(username) {
+		let messages = [];
+		for (let i=0;i<this.infoList.length;i++) {
+			for (let j=0;j<this.infoList.length;j++) {
+			if (this.infoList[i] && username == this.infoList[i].userMsgHist[j].username)
+			{
+					messages.push(this.infoList[i].userMsgHist[j].message);
+			}
+		}
+		}
+		return (messages);
+	}
+	myDatabase.prototype.getAllMessagesToUserFromUser = function(toUsername,fromUsername) {
+		let messages = [];
+		for (let i=0;i<this.infoList.length;i++) {
+			for (let j=0;j<this.infoList.length;j++) {
+			if (this.infoList[i] && fromUsername == this.infoList[i].username && toUsername == this.infoList[i].userMsgHist[j].username)
+			{
+					messages.push(this.infoList[i].userMsgHist[j].message);
+			}
+		}
+		}
+		return (messages);
+	}
+
 
 
 
