@@ -16,13 +16,17 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
-
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
+});
+
+router.get("/userList",function(req,res){
+	console.log("inRoutes");
+	res.json(db.getAllUsernames);
 });
 
 router.get("/logout",function(req,res){
@@ -124,6 +128,8 @@ router.post('/login', function(req, res){
 		}
 	}
 			res.json(null);
+			//https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client to try to fix the
+			//cmd error resulting from this
 
 });
 router.get("/postPicture",function(req,res){
@@ -139,13 +145,15 @@ router.post("/submitPost",function(req,res){
 
 	console.log('we here in submit post');
 	console.log("upload");
+	console.log(req.body.caption);
+
 
 		res.json({});
 
 
 });
 
-router.post('/fileupload', function(req, res){
+router.post('/mainpages/html/fileupload', function(req, res){
 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
@@ -156,6 +164,19 @@ router.post('/fileupload', function(req, res){
         if (err) throw err;
 
 console.log("fileupload " + files.filetoupload.name);
+console.log("fileupload " + files.filetoupload);
+
+	/*	let postObject = {username:req.session_state.username, //redundant but adding jsut in case
+							  realname:req.session_state.realname,
+							  timestamp:Date.now(),
+							  caption: ,
+								friendList:[],
+								userMsgHist : []
+						 		} */
+			/////
+		//	db.postWithUsername(req.session_state.username, postObject);
+		//	db.postWithRealname(req.session_state.realname,	postObject);
+
 
 	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
       });

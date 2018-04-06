@@ -13,10 +13,12 @@ function logoutClicked(){
 }*/
 function submitClicked()
 {
+	console.log($("#caption").val());
+
 	$.ajax({
 					url: "/submitPost",
 					type: "POST",
-					data: {},
+					data: {caption: $("#caption").val()},
 					success: function(data){
 
 					if (!data)
