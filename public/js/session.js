@@ -1,5 +1,5 @@
 
-
+let user;
 function logoutClicked(){
 //add or modify.  Do a get request on /logout and have the callback
 //                from the server redirect to /login.
@@ -15,13 +15,13 @@ function sessionSuccess(user){
 
 
 }
-function postClicked(user)
+function postClicked()
 {
 	console.log(user);
 	$.ajax({
-					url: "/getUserProfile",
+					url: "/postPicture",
 					type: "POST",
-					data: {username:user},
+					data: {},
 					success: function(data){
 
 					if (!data)
@@ -36,10 +36,11 @@ function postClicked(user)
 			}
 	function getUserProfile()
 			{
+				console.log(user);
 				$.ajax({
-								url: "/postPicture",
+								url: "/getUserProfile",
 								type: "POST",
-								data: {},
+								data: {username:user},
 								success: function(data){
 
 								if (!data)
@@ -54,19 +55,24 @@ function postClicked(user)
 						}
 	function getUsers()
 	{
+
 		console.log('getUsers function called');
 		$.ajax({
 						url: "/userList",
 						type: "GET",
 						success: function(data){
-						console.log('getusers success');
+						console.log('get users success');
 						if (!data)
 								alert("No Users");
 						else
 						{
 								for (let j=0;j<data.length;j++)
-									$("#userList").append("<button> <a href='javaScript:getUserProfile("+data[j]+")'>" +  data[j] + "</a></button>");
-
+								{
+									user = data[j];
+									console.log(data[j]);
+										$("#userList").append("<button> <a href='javaScript:getUserProfile()';>" +
+										 											data[j] + "</a></button>");
+								}
 						}
 
 						} ,
