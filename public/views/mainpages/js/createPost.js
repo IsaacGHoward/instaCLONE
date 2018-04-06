@@ -13,6 +13,7 @@ function logoutClicked(){
 }*/
 function submitClicked()
 {
+	console.log("submit clicked");
 	console.log($("#caption").val());
 
 	$.ajax({
@@ -31,7 +32,9 @@ function submitClicked()
 			return false;
 			}
 
-
+$(document).ready(
+        function()
+        {
 
 	 $("form").submit(
           function(event)
