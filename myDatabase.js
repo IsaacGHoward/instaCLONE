@@ -38,6 +38,7 @@ myDatabase.prototype.getAllObjects = function() {
 }
 
 myDatabase.prototype.getAllUsernames = function() {
+	//console.log("in usernames");
 	let usernames = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i]) {

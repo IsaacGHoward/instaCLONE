@@ -25,7 +25,7 @@ router.get("/login",function(req,res){
 });
 
 router.get("/userList",function(req,res){
-	console.log(inRoutes);
+	console.log("inRoutes");
 	res.json(db.getAllUsernames);
 });
 
@@ -145,7 +145,7 @@ router.post("/submitPost",function(req,res){
 	console.log("upload");
 	console.log(req.body.caption);
 
-			
+
 		res.json({});
 
 

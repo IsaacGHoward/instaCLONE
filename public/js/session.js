@@ -35,19 +35,20 @@ function postClicked()
 			}
 	function getUsers()
 	{
+		console.log('getUsers function called');
 		$.ajax({
 						url: "/userList",
 						type: "GET",
 						data: {},
 						success: function(data){
-
+						console.log('getusers success');
 						if (!data)
 								alert("Sign Up Invalid");
 						else
 						{
 								for (let j=0;j<data.length;j++) {
-
-									$("#userList").append("<li>" data[j] "<li>")
+									console.log("usersss");
+									$("#userList").append("<li>" +  data[j] + "</li>");
 								}
 						}
 
@@ -69,12 +70,13 @@ $(document).ready(function(){
 //                about the currently logged in user.  Use that data to
 //                modify the DOM to personalize the session.
 
-	$("#submit").onClick( function( event ) {
+	$("#submit").click( function( event ) {
 				postClicked();
 				return false;
 				});
 
-	$("#allUsers").onClick( function( event ) {
+	$("#allUsers").click( function( event ) {
+				console.log('all users clicked');
 				getUsers();
 				return false;
 					});
