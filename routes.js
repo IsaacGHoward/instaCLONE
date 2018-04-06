@@ -128,6 +128,8 @@ router.post('/login', function(req, res){
 		}
 	}
 			res.json(null);
+			//https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client to try to fix the
+			//cmd error resulting from this
 
 });
 router.get("/postPicture",function(req,res){
