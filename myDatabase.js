@@ -111,6 +111,9 @@ myDatabase.prototype.addObjectAtIndex = function(obj,index) {
 	}
 	else
 		this.infoList[index] = obj;
+
+		storage.setItemSync("myStorage", this.infoList);
+		storage.initSync();
 	return (obj);
 }
 
@@ -133,6 +136,8 @@ myDatabase.prototype.postWithUsername = function(username, postObject) {
 		{
 			//this.infoList[i].postObjects.push(postObject);
 			this.infoList[i].postObjects.push(postObject);
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
 			return(this.infoList[i].postObjects[i]);
 		}
 	}
@@ -143,7 +148,9 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && realname == this.infoList[i].realname)
 			this.infoList[i].postObjects.push(postObject);
-
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
+			return(this.infoList[i].postObjects[i]);
 	}
 	return (null);
 }
@@ -186,7 +193,7 @@ myDatabase.prototype.getAllPostsWithUsername = function(username) {
 	}
 	return (null);
 }
-myDatabase.prototype.getPostWithUsername = function(username, label) {
+myDatabase.prototype.getPostWithUsernameandLabel = function(username, label) {
 
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
@@ -213,6 +220,8 @@ myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
 								{
 								let obj = this.infoList[i].postObjects[j];
 								this.infoList[i].postObjects[j] = undefined;
+								storage.setItemSync("myStorage", this.infoList);
+								storage.initSync();
 								return(obj);
 								}
 							}
@@ -228,6 +237,8 @@ myDatabase.prototype.changeObjectWithUsername = function(obj,  username) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && obj.username == this.infoList[i].username)
 			this.infoList[i] = obj;
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
 			return (obj);
 	}
 		return (null);
@@ -237,6 +248,8 @@ myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && obj.realname == this.infoList[i].realname)
 			this.infoList[i] = obj;
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
 			return (obj);
 	}
 		return (null);
@@ -248,6 +261,8 @@ myDatabase.prototype.changeObject = function(obj) {
 		if (this.infoList[i] && obj.username == this.infoList[i].username)
 		{
 			this.infoList[i]=obj;
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
 			return(obj);
 		}
 	}
@@ -260,6 +275,8 @@ myDatabase.prototype.changeObject = function(obj) {
 			if (this.infoList[i] && username == this.infoList[i].username)
 			{
 				this.infoList[i].userMsgHist.push(message);
+				storage.setItemSync("myStorage", this.infoList);
+				storage.initSync();
 				return(this.infoList[i]);
 			}
 		}
