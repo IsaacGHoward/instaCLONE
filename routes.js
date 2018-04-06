@@ -180,12 +180,15 @@ console.log(Date.now());
 							  date:today,
 							  timestamp:Date.now(),
 							  caption: fields.caption ,
+							  imageLocation:(__dirname + '/public/images/' + files.filetoupload.name),
+							  imageName: files.filetoupload.name,
+							  image: files.filetoupload
 						 		} 
 			/////
 			db.postWithUsername(req.session_state.username, postObject);
 			db.postWithRealname(req.session_state.realname,	postObject);
 
-
+console.log(db.getAllPostsWithUsername("a"));
 	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
       });
     });
