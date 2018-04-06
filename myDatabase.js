@@ -147,10 +147,12 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && realname == this.infoList[i].realname)
+		{
 			this.infoList[i].postObjects.push(postObject);
 			storage.setItemSync("myStorage", this.infoList);
 			storage.initSync();
 			return(this.infoList[i].postObjects[i]);
+		}
 	}
 	return (null);
 }
