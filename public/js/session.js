@@ -39,13 +39,14 @@ function postClicked()
 				console.log(user);
 				$.ajax({
 								url: "/getUserProfile",
-								type: "POST",
+								type: "GET",
 								data: {username:user},
 								success: function(data){
 
 								if (!data)
 										alert("Sign Up Invalid");
 									else
+									alert("Success")
 									 window.location = data.redirect;
 								} ,
 								dataType: "json"

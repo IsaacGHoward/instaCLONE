@@ -8,7 +8,6 @@ var formidable = require('formidable');
 var fs = require('fs');
 var db = new myDatabase();
 
-var captionText;
 
 router.get("/signup",function(req,res){
 
@@ -17,6 +16,7 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
+	console.log(db.getAllUsername());
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
@@ -29,8 +29,8 @@ router.get("/userList",function(req,res){
 	res.json(db.getAllUsernames());
 });
 
-router.post("/getUserProfile",function(req,res){
-	console.log(req.body.username);
+router.get("/getUserProfile",function(req,res){
+	console.log(req.query.username);
 	res.sendFile(__dirname + "/public/views/profile.html");
 });
 
@@ -148,11 +148,10 @@ res.sendFile(__dirname + "/public/views/mainpages/html/createPost.html");
 
 router.post("/submitPost",function(req,res){
 
-	//console.log('we here in submit post');
-	//console.log("upload");
-	
-	//captionText = req.body.caption;
-	//console.log(captionText);
+	console.log('we here in submit post');
+	console.log("upload");
+	console.log(req.body.caption);
+
 
 		res.json({});
 
@@ -165,25 +164,23 @@ router.post('/mainpages/html/fileupload', function(req, res){
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
       var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-      
+
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
 
-        	let today = new Date();
 console.log("fileupload " + files.filetoupload.name);
 console.log("fileupload " + files.filetoupload);
-console.log("today is " + today);
-console.log(Date.now());
-//console.log(req.body.caption);
-		let postObject = {username:req.session_state.username, //redundant but adding jsut in case
+
+	/*	let postObject = {username:req.session_state.username, //redundant but adding jsut in case
 							  realname:req.session_state.realname,
-							  date:today,
 							  timestamp:Date.now(),
-							  caption: fields.caption ,
-						 		} 
+							  caption: ,
+								friendList:[],
+								userMsgHist : []
+						 		} */
 			/////
-			db.postWithUsername(req.session_state.username, postObject);
-			db.postWithRealname(req.session_state.realname,	postObject);
+		//	db.postWithUsername(req.session_state.username, postObject);
+		//	db.postWithRealname(req.session_state.realname,	postObject);
 
 
 	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
