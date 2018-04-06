@@ -36,6 +36,7 @@ function postClicked()
 			}
 	function getUserProfile()
 			{
+				console.log(user);
 				$.ajax({
 								url: "/getUserProfile",
 								type: "POST",

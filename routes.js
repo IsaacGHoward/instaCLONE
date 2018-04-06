@@ -25,12 +25,11 @@ router.get("/login",function(req,res){
 });
 
 router.get("/userList",function(req,res){
-	console.log("inRoutes");
 	res.json(db.getAllUsernames());
 });
 
 router.post("/getUserProfile",function(req,res){
-	console.log("inRoutes");
+	console.log(req.body.username);
 	res.sendFile(__dirname + "/public/views/profile.html");
 });
 
