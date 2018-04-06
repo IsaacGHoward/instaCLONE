@@ -31,7 +31,7 @@ router.get("/userList",function(req,res){
 
 router.post("/getUserProfile",function(req,res){
 	console.log("inRoutes");
-	res.json(db.getAllUsernames);
+	res.sendFile(__dirname + "/public/views/profile.html");
 });
 
 router.get("/logout",function(req,res){
