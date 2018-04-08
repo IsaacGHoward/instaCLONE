@@ -18,16 +18,21 @@ function getPosts()
 							alert("No Posts");
 					else
 					{
-						let postarr;
+						data.sort(function(a, b) {
+						  return a.timestamp - b.timestamp;
+						});
 							for (let j=0;j<data.length;j++)
 							{
 								post = data[j].imageName;
+
 								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
 								$('#postlist').append(data[j].caption);
 								//console.log(data[j]);
 								//	$("#postlist").append("<li> " +
 								//												data[j].image + "</li>");
 							}
+
+
 					}
 
 					} ,
