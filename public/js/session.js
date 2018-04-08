@@ -20,7 +20,9 @@ function sessionSuccess(user){
 		loc = user.postObjects[i].imageName;
 
 	$('#postlist').append($('<img>',{src:'/public/images/' + String(loc)}));
+	$('#postlist').append("<br>");
 	$('#postlist').append(user.postObjects[i].caption);
+	$('#postlist').append("<br><br><br><hr><br><br><br>");
 	}
 
 	//$('#postlist').append(user.postObjects[0].image);
