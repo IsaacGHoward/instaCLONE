@@ -103,9 +103,26 @@ function postClicked()
 
 $(document).ready(function(){
 
+	function userload()
+	{
+		var parameters = location.search.substring(1).split("&");
 
+		var temp = parameters[0].split("=");
+		l = unescape(temp[1]);
 
-	$.get('/userInfo',null,sessionSuccess)
+		temp = parameters[1].split("=");
+		c = unescape(temp[1]);
+		c= c.split('_').join(' ');
+		l = l.split('_').join(' ');
+		console.log(l);
+		console.log(c);
+		$("#postimage").attr("src",c);
+		$("#posttitle").html(l);
+		//document.getElementById("log").innerHTML = l;
+		//document.getElementById("pass").innerHTML = c;
+	}
+
+	$.get('/userInfo',null,sessionSuccess);
 
 //add or modify.  Do a get request on /userInfo to get user session data
 //                about the currently logged in user.  Use that data to
