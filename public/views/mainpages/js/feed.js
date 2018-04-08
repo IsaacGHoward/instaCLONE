@@ -28,7 +28,7 @@ function getPosts()
 								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
 								$('#postlist').append("<br>");
 								$('#postlist').append(data[j].caption);
-								$('#postlist').append("<br>");
+								$('#postlist').append("<br><br><br><hr><br><br><br>");
 								//console.log(data[j]);
 								//	$("#postlist").append("<li> " +
 								//												data[j].image + "</li>");
