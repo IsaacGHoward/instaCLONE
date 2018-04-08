@@ -14,14 +14,17 @@ function sessionSuccess(user){
 	$('datejoined').html("Date Joined: " + user.sd);
 
 	let loc;
-
+  var userposts = user.postObjects
+	userposts.sort(function(a, b) {
+		return b.timestamp - a.timestamp;
+	});
 	console.log("/public/images/" + String("bison.jpg") +"");
-	for (let i=0;user.postObjects.length;i++) {
-		loc = user.postObjects[i].imageName;
+	for (let i=0;userposts.length;i++) {
+		loc = userposts[i].imageName;
 
 	$('#postlist').append($('<img>',{src:'/public/images/' + String(loc)}));
 	$('#postlist').append("<br>");
-	$('#postlist').append(user.postObjects[i].caption);
+	$('#postlist').append(userposts[i].caption);
 	$('#postlist').append("<br><br><br><hr><br><br><br>");
 	}
 

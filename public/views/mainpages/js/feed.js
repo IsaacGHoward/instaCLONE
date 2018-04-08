@@ -19,7 +19,7 @@ function getPosts()
 					else
 					{
 						data.sort(function(a, b) {
-						  return a.timestamp - b.timestamp;
+						  return b.timestamp - a.timestamp;
 						});
 							for (let j=0;j<data.length;j++)
 							{
