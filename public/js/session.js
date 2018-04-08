@@ -12,17 +12,17 @@ function sessionSuccess(user){
 	$('#name').html("Name: " + user.realname);
 	$('#age').html("DOB: " + user.age);
 	$('datejoined').html("Date Joined: " + user.sd);
-	
+
 	let loc;
-	
+
 	console.log("/public/images/" + String("bison.jpg") +"");
 	for (let i=0;user.postObjects.length;i++) {
 		loc = user.postObjects[i].imageName;
-	
+
 	$('#postlist').append($('<img>',{src:'/public/images/' + String(loc)}));
 	$('#postlist').append(user.postObjects[i].caption);
 	}
-	
+
 	//$('#postlist').append(user.postObjects[0].image);
 
 
@@ -113,7 +113,7 @@ $(document).ready(function(){
 				getUsers();
 				return false;
 					});
-	
+
 
 
 //add or modify.  Call logoutClicked when logout button is pressed.

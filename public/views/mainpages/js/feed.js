@@ -18,12 +18,15 @@ function getPosts()
 							alert("No Posts");
 					else
 					{
+						let postarr;
 							for (let j=0;j<data.length;j++)
 							{
-								post = data[j];
-								console.log(data[j]);
-									//$("#postlist").append("<button> <a href='javaScript:getUserProfile()';>" +
-																				//data[j] + "</a></button>");
+								post = data[j].imageName;
+								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
+								$('#postlist').append(data[j].caption);
+								//console.log(data[j]);
+								//	$("#postlist").append("<li> " +
+								//												data[j].image + "</li>");
 							}
 					}
 
