@@ -26,6 +26,9 @@ function getPosts()
 								post = data[j].imageName;
 
 								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
+								console.log('/public/images/' + String(post));
+								var imgdir = '/public/images/' + String(post);
+								imgdir = imgdir.split(' ').join('_');
 								$('#postlist').append("<br>");
 								$('#postlist').append(data[j].caption);
 								var caption = data[j].caption;
@@ -34,6 +37,7 @@ function getPosts()
 								$('#postlist').append(
 								  '<form action="postview.html">' +
   								'<input type="hidden" name="varname" value=' + caption  +' />' +
+									'<input type="hidden" name="imagedir" value=' + imgdir + ' />' +
   								'<input type="submit" value="View Post">' +
 									'</form>'
 

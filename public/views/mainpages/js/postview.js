@@ -17,10 +17,13 @@ $(document).ready(function(){
 		var temp = parameters[0].split("=");
 		l = unescape(temp[1]);
 
-		//temp = parameters[1].split("=");
-		//c = unescape(temp[1]);
+		temp = parameters[1].split("=");
+		c = unescape(temp[1]);
+		c= c.split('_').join(' ');
 		l = l.split('_').join(' ');
 		console.log(l);
+		console.log(c);
+		$("#postimage").attr("src",c);
 		$("#posttitle").html(l);
 		//document.getElementById("log").innerHTML = l;
 		//document.getElementById("pass").innerHTML = c;
