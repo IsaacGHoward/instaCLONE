@@ -27,6 +27,16 @@ function getPosts()
 
 								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
 								$('#postlist').append(data[j].caption);
+								var caption = data[j].caption;
+								caption = caption.split(' ').join('_');
+								console.log(caption);
+								$('#postlist').append(
+								  '<form action="postview.html">' +
+  								'<input type="hidden" name="varname" value=' + caption  +' />' +
+  								'<input type="submit" value="View Post">' +
+									'</form>'
+
+								)
 								//console.log(data[j]);
 								//	$("#postlist").append("<li> " +
 								//												data[j].image + "</li>");
