@@ -26,7 +26,9 @@ function getPosts()
 								post = data[j].imageName;
 
 								$("#postlist").append($('<img>',{src:'/public/images/' + String(post)}));
+								$('#postlist').append("<br>");
 								$('#postlist').append(data[j].caption);
+								$('#postlist').append("<br>");
 								//console.log(data[j]);
 								//	$("#postlist").append("<li> " +
 								//												data[j].image + "</li>");
@@ -54,11 +56,11 @@ $(document).ready(function(){
 
 
 
-	$("#getposts").click( function( event ) {
+	//$("#getposts").click( function( event ) {
 				console.log('get posts clicked');
 				getPosts();
 				return false;
-					});
+	//				});
 
 //add or modify.  Call logoutClicked when logout button is pressed.
 
