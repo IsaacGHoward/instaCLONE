@@ -129,6 +129,38 @@ myDatabase.prototype.addObject = function(obj) {
 	return (obj);
 }
 
+myDatabase.prototype.addFriendToUser = function(username, friendObj) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+		{
+			this.infoList[i].friendList.push(obj);
+			storage.setItemSync("myStorage", this.infoList);
+			storage.initSync();
+			return (obj);
+		}
+	}
+	return(null);
+}
+myDatabase.prototype.getAllFriendsofUser = function(username) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+			return (this.infoList[i].friendList);
+	}
+	return(null);
+}
+myDatabase.prototype.findifFriend = function(username,potFriendUsername) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+			{
+				for (let j=0;j<this.infoList[i].friendList;j++) {
+					if (this.infoList[i].friendList[j] && potFriendUsername == this.infoList[i].friendList[j].username)
+						return (true);
+				}
+			}
+	}
+	return(false);
+}
+
 myDatabase.prototype.postWithUsername = function(username, postObject) {
 
 	for (let i=0;i<this.infoList.length;i++) {
