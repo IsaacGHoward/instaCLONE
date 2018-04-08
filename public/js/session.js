@@ -101,6 +101,8 @@ $(document).ready(function(){
 				getUsers();
 				return false;
 					});
+	
+
 
 //add or modify.  Call logoutClicked when logout button is pressed.
 

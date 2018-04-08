@@ -29,6 +29,10 @@ router.get("/userList",function(req,res){
 	res.json(db.getAllUsernames());
 });
 
+router.get("/followerPosts",function(req,res){
+	res.json(db.getAllPostsWithUsername('a'));
+});
+
 router.post("/getUserProfile",function(req,res){
 	console.log(req.body.username);
 	res.sendFile(__dirname + "/public/views/profile.html");
@@ -150,7 +154,7 @@ router.post("/submitPost",function(req,res){
 
 	//console.log('we here in submit post');
 	//console.log("upload");
-	
+
 	//captionText = req.body.caption;
 	//console.log(captionText);
 
@@ -165,7 +169,7 @@ router.post('/mainpages/html/fileupload', function(req, res){
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
       var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-      
+
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
 
@@ -183,7 +187,7 @@ console.log(Date.now());
 							  imageLocation:(__dirname + '/public/images/' + files.filetoupload.name),
 							  imageName: files.filetoupload.name,
 							  image: files.filetoupload
-						 		} 
+						 		}
 			/////
 			db.postWithUsername(req.session_state.username, postObject);
 			db.postWithRealname(req.session_state.realname,	postObject);
