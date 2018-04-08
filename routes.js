@@ -170,10 +170,10 @@ router.post('/mainpages/html/fileupload', function(req, res){
         if (err) throw err;
 
         	let today = new Date();
-console.log("fileupload " + files.filetoupload.name);
-console.log("fileupload " + files.filetoupload);
-console.log("today is " + today);
-console.log(Date.now());
+//console.log("fileupload " + files.filetoupload.name);
+//console.log("fileupload " + files.filetoupload);
+//console.log("today is " + today);
+//console.log(Date.now());
 //console.log(req.body.caption);
 		let postObject = {username:req.session_state.username, //redundant but adding jsut in case
 							  realname:req.session_state.realname,
@@ -188,7 +188,7 @@ console.log(Date.now());
 			db.postWithUsername(req.session_state.username, postObject);
 			db.postWithRealname(req.session_state.realname,	postObject);
 
-console.log(db.getAllPostsWithUsername("a"));
+//console.log(db.getAllPostsWithUsername("a"));
 	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
       });
     });
