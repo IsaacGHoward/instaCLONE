@@ -125,6 +125,12 @@
             }
         });
       $("#submit").click(function(){
+
+        var selectedText = $("#age").val();
+        var selectedDate = new Date(selectedText);
+          var now = new Date();
+       
+
         if($("#password").val() != $("#password2").val())
           alert("Passwords must match");
         else if ($("#age").val() > Date.now()) {
@@ -145,8 +151,8 @@
          else if (!$("#realname").val()) {
           alert("Fill all fields");
         }
-         else if (!$("#age").val()) {
-          alert("Fill all fields");
+         else if (selectedDate > now) {
+         alert("Date must be valid");
         }
         else
         userClicked();
