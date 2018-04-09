@@ -10,7 +10,7 @@ function sessionSuccess(user){
 }
 
 $(document).ready(function(){
-	function initpost()
+	function addComment()
 	{
 		var parameters = location.search.substring(1).split("&");
 
@@ -28,15 +28,7 @@ $(document).ready(function(){
 		//document.getElementById("log").innerHTML = l;
 		//document.getElementById("pass").innerHTML = c;
 	}
-initpost();
-$("#submitcomment").click( function( event ) {
-			console.log('Comment : ' + $('#commentinput').val());
-			var postcap = $('#posttitle').val();
-			console.log(postcap);
-			$.post('/addcomment',{'postcaption' : postcap},null);
-			//getUsers();
-			return false;
-				});
+addComment();
 	//$.get('/userInfo',null,sessionSuccess)
 	//do get request for viewed post
 });

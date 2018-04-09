@@ -14,13 +14,11 @@ function sessionSuccess(user){
 	$('#datejoined').html("Date Joined: " + user.sd);
 
 	let loc;
-	console.log(user);
   var userposts = user.postObjects;
 	userposts.sort(function(a, b) {
 		return b.timestamp - a.timestamp;
 	});
 	console.log("/public/images/" + String("bison.jpg") +"");
-	console.log(userposts.length);
 	for (let i=0;userposts.length;i++) {
 		loc = userposts[i].imageName;
 
@@ -137,7 +135,6 @@ $(document).ready(function(){
 				getUsers();
 				return false;
 					});
-
 
 
 

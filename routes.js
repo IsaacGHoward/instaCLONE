@@ -15,14 +15,7 @@ router.get("/signup",function(req,res){
 res.sendFile(__dirname + "/public/views/signup.html");
 });
 
-router.post('/addcomment', function(req,res){
-	var posts = db.getAllPosts();
-  for(var i=0;i<posts.length;i++){
-		if(posts[i].caption == req.body.postcaption)
-			console.log("post caption : " + req.body.postcaption);
-	}
-	//var newComment = db.addCommentToPost();
-});
+
 router.get("/",function(req,res){
 //	db.deleteAllObjects();
 	res.sendFile(__dirname + "/public/views/login.html");
@@ -59,7 +52,6 @@ router.get('/checkFollow',function(req,res){
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
-	console.log("LOGINN");
 });
 
 router.get("/userList",function(req,res){
@@ -170,7 +162,7 @@ router.post('/login', function(req, res){
 					if(req.body.password == objs[i].password)
 					{
 						req.session_state.username = req.body.username;
-						res.json({redirect:"/public/views/session.html"});
+						res.json({redirect:"/session"});
 			  	}
 				}
 		}
@@ -197,7 +189,7 @@ router.post("/submitPost",function(req,res){
 	//captionText = req.body.caption;
 	//console.log(captionText);
 
-		res.json({redirect:"../../mainpages/html/feed.html"})
+		res.json({});
 
 
 });
@@ -233,7 +225,7 @@ router.post('/mainpages/html/fileupload', function(req, res){
 			db.postWithRealname(req.session_state.realname,	postObject);
 
 //console.log(db.getAllPostsWithUsername("a"));
-	 res.json({redirect:"../../session"});
+	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
       });
     });
 });
