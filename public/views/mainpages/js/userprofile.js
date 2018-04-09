@@ -44,11 +44,13 @@ function loggedInUserSuccess(logged_user){
 function followResult(result){
 	if(result == true)
 	{
-		console.log("already following");
-			$('#addfriend').html("Following");
+		console.log("was following, now unfollowing");
+			$('#addFriend').html("Not Following");
+			$.post('/unfollow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
 	}
-	else{
-		console.log("not following");
+	else if(result == false){
+		console.log("wasn't following, now following");
+		$('#addfriend').html("Following");
 		$.post('/follow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
 	}
 

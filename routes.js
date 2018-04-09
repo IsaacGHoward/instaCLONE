@@ -22,27 +22,28 @@ router.get("/",function(req,res){
 });
 
 router.get("/getuserinfo",function(req,res){
-  console.log("get user info");
-	console.log("req query name : " + req.query.name);
-	console.log(db.getObjectWithUsername(req.query.name));
+  //console.log("get user info");
+	//console.log("req query name : " + req.query.name);
+	//console.log(db.getObjectWithUsername(req.query.name));
 	res.json(db.getObjectWithUsername(req.query.name));
 })
 
 router.post('/follow', function(req,res){
-	console.log("FOLLOW ATTEMPTED");
-	console.log(req.body.localuser.username);
-	console.log(req.body.otheruser);
+	//console.log("FOLLOW ATTEMPTED");
+	//console.log(req.body.localuser.username);
+	//console.log(req.body.otheruser);
 	var newObj = db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
-	console.log(newObj);
+	//console.log(newObj);
 });
 router.post('/unfollow', function(req,res){
 	//remove friend
+	var newObjj = db.removeFriend(req.body.localuser.username,req.body.otheruser );
 });
 router.get('/checkFollow',function(req,res){
 	var toset = false;
 	var friendlist = db.getAllFriendsofUser(req.query.localuser.username);
 	for (let i=0;i<friendlist.length;i++) {
-		if (friendlist[i].username == req.query.otheruser.username) {
+		if (friendlist[i] && friendlist[i].username == req.query.otheruser.username) {
 			toset = true;
 		}
 	}
