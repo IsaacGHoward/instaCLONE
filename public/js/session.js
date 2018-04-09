@@ -14,7 +14,7 @@ function sessionSuccess(user){
 	$('datejoined').html("Date Joined: " + user.sd);
 
 	let loc;
-  var userposts = user.postObjects
+  var userposts = user.postObjects;
 	userposts.sort(function(a, b) {
 		return b.timestamp - a.timestamp;
 	});
@@ -135,6 +135,7 @@ $(document).ready(function(){
 				getUsers();
 				return false;
 					});
+
 
 
 

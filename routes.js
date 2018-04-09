@@ -52,6 +52,7 @@ router.get('/checkFollow',function(req,res){
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
+	console.log("LOGINN");
 });
 
 router.get("/userList",function(req,res){
@@ -160,7 +161,7 @@ router.post('/login', function(req, res){
 					if(req.body.password == objs[i].password)
 					{
 						req.session_state.username = req.body.username;
-						res.json({redirect:"/session"});
+						res.json({redirect:"/public/views/session.html"});
 			  	}
 				}
 		}
