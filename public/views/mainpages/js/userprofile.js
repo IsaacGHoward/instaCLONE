@@ -47,6 +47,9 @@ function followResult(result){
 		console.log("was following, now unfollowing");
 			$('#addFriend').html("Not Following");
 			$.post('/unfollow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
+		console.log("already following");
+	//unfollow
+			$('#addfriend').html("Following");
 	}
 	else if(result == false){
 		console.log("wasn't following, now following");
