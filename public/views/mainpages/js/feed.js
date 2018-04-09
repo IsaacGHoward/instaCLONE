@@ -3,7 +3,31 @@ let user;
 let post;
 
 
+function sessionSuccess(user){
+	//$('#username').html(user.username+"'s"+" profile");
+	//$('#name').html("Name: " + user.realname);
+	//$('#age').html("DOB: " + new Date(user.age));
+	//$('#datejoined').html("Date Joined: " + user.sd);
+for (let i=0;user;i++) {
+	let loc;
+  var userposts = user.postObjects;
+	userposts.sort(function(a, b) {
+		return b.timestamp - a.timestamp;
+	});
+	console.log("/public/images/" + String("bison.jpg") +"");
+	for (let i=0;userposts.length;i++) {
+		loc = userposts[i].imageName;
 
+	$('#postlist').append($('<img>',{src:'/public/images/' + String(loc)}));
+	$('#postlist').append("<br>");
+	$('#postlist').append(userposts[i].caption);
+	$('#postlist').append("<br><br><br><hr><br><br><br>");
+	}
+}
+	//$('#postlist').append(user.postObjects[0].image);
+
+
+}
 
 function getPosts()
 {
