@@ -1,5 +1,5 @@
 
-let user;
+var user;
 function logoutClicked(){
 //add or modify.  Do a get request on /logout and have the callback
 //                from the server redirect to /login.
@@ -7,7 +7,9 @@ function logoutClicked(){
 	return false;
 }
 
-function sessionSuccess(user){
+function sessionSuccess(User){
+	user = User;
+	console.log(user.username);
 	//$('#username').html(user.username+"'s"+" profile");
 	//$('#name').html("Name: " + user.realname);
 	//$('#age').html("DOB: " + user.age);
@@ -54,8 +56,8 @@ $(document).ready(function(){
 		//console.log(c);
 		//$("#postimage").attr("src",c);
 		$("#username").html(l+"'s Profile");
-		user = $.get('/getuserinfo',{'name' : "1"},sessionSuccess);
-		console.log(user.realname);
+		$.get('/getuserinfo',{'name' : "1"},sessionSuccess);
+
 		//document.getElementById("log").innerHTML = l;
 		//document.getElementById("pass").innerHTML = c;
 	}
