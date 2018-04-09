@@ -15,7 +15,14 @@ router.get("/signup",function(req,res){
 res.sendFile(__dirname + "/public/views/signup.html");
 });
 
-
+router.post('/addcomment', function(req,res){
+	var posts = db.getAllPosts();
+  for(var i=0;i<posts.length;i++){
+		if(posts[i].caption == req.body.postcaption)
+			console.log("post caption : " + req.body.postcaption);
+	}
+	//var newComment = db.addCommentToPost();
+});
 router.get("/",function(req,res){
 //	db.deleteAllObjects();
 	res.sendFile(__dirname + "/public/views/login.html");
