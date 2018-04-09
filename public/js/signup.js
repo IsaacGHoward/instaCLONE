@@ -41,6 +41,18 @@
               return false;
             }
         });
+    $("#username").keyup(function(e){     
+    var str = $.trim( $(this).val() );
+    if( str != "" ) {
+      var regx = /^[A-Za-z0-9]+$/;
+      if (!regx.test(str)) {
+       alert("Alphanumeric Only (No Spaces)");
+      }
+    }
+    else {
+       //empty value -- do something here
+    }
+    });
 		$("#password").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -48,6 +60,18 @@
               return false;
             }
         });
+    $("#password").keyup(function(e){     
+    var str = $.trim( $(this).val() );
+    if( str != "" ) {
+      var regx = /^[A-Za-z0-9]+$/;
+      if (!regx.test(str)) {
+       alert("Alphanumeric Only (No Spaces)");
+      }
+    }
+    else {
+       //empty value -- do something here
+    }
+    });
       $("#password2").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -55,6 +79,18 @@
               return false;
             }
         });
+      $("#password2").keyup(function(e){     
+    var str = $.trim( $(this).val() );
+    if( str != "" ) {
+      var regx = /^[A-Za-z0-9]+$/;
+      if (!regx.test(str)) {
+       alert("Alphanumeric Only (No Spaces)");
+      }
+    }
+    else {
+       //empty value -- do something here
+    }
+    });
      $("#realname").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -62,6 +98,18 @@
               return false;
             }
         });
+     $("#realname").keyup(function(e){     
+    var str = $.trim( $(this).val() );
+    if( str != "" ) {
+      var regx = /^[A-Za-z ]+$/;
+      if (!regx.test(str)) {
+       alert("Only letters please, yain't a robot");
+      }
+    }
+    else {
+       //empty value -- do something here
+    }
+    });
       $("#age").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -69,8 +117,39 @@
               return false;
             }
         });
+      $("#email").keydown( function( event ) {
+            if ( event.which === 13 ) {
+              userClicked();
+              event.preventDefault();
+              return false;
+            }
+        });
       $("#submit").click(function(){
-         userClicked();
+        if($("#password").val() != $("#password2").val())
+          alert("Passwords must match");
+        else if ($("#age").val() > Date.now()) {
+          alert("Enter Valid Birthday");
+        }
+        else if (!$("#email").val()) {
+          alert("Enter Valid Email");
+        }
+        else if (!$("#username").val()) {
+          alert("Fill all fields");
+        }
+        else if (!$("#password").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#password2").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#realname").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#age").val()) {
+          alert("Fill all fields");
+        }
+        else
+        userClicked();
       });
 
 

@@ -45,6 +45,7 @@ function followResult(result){
 	if(result == true)
 	{
 		console.log("already following");
+	//unfollow
 			$('#addfriend').html("Following");
 	}
 	else{
