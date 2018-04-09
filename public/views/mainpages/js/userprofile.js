@@ -1,5 +1,6 @@
 
 var user;
+var loggeduser;
 function logoutClicked(){
 //add or modify.  Do a get request on /logout and have the callback
 //                from the server redirect to /login.
@@ -35,12 +36,31 @@ function sessionSuccess(User){
 
 
 }
+function loggedInUserSuccess(logged_user){
+	loggeduser = logged_user;
+	console.log("LOGGED IN USER: " +logged_user.username);
+}
+
+function followResult(result){
+	if(result == true)
+		console.log("already following");
+	else{
+		console.log("not following");
+		$.post('/follow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
+	}
 
 
+}
 
 
 $(document).ready(function(){
 
+	$("#addfriend").click( function( event ) {
+				$.get('/checkFollow',{'localuser' : loggeduser , 'otheruser' : user},followResult);
+				console.log(loggeduser.username + ' has followed ' + user.username);
+				//getUsers();
+				return false;
+					});
 
 	function viewUser()
 	{
@@ -53,7 +73,7 @@ $(document).ready(function(){
 		//c = unescape(temp[1]);
 		//c= c.split('_').join(' ');
 		//l = l.split('_').join(' ');
-		console.log(" L : " + l);
+		console.log(" VIEWED USER : " + l);
 		//console.log(c);
 		//$("#postimage").attr("src",c);
 		$("#username").html(l+"'s Profile");
@@ -63,6 +83,7 @@ $(document).ready(function(){
 		//document.getElementById("pass").innerHTML = c;
 	}
 	viewUser();
+	$.get('/userInfo',null,loggedInUserSuccess);
 	//$.get('/userInfo',null,sessionSuccess)
 
 //add or modify.  Do a get request on /userInfo to get user session data

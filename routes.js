@@ -27,6 +27,23 @@ router.get("/getuserinfo",function(req,res){
 	res.json(db.getObjectWithUsername(req.query.name));
 })
 
+router.post('/follow', function(req,res){
+	console.log("FOLLOW ATTEMPTED");
+	db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
+});
+router.post('/unfollow', function(req,res){
+	//remove friend
+});
+router.get('/checkFollow',function(req,res){
+	var friendlist = db.getAllFriendsofUser(req.query.localuser.username);
+	for (let i=0;i<friendlist.length;i++) {
+		if (friendlist[i] == req.query.otheruser) {
+			res.json(true);
+		}
+	}
+	res.json(false);
+})
+
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
 });

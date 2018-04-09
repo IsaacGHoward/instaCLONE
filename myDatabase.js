@@ -133,10 +133,10 @@ myDatabase.prototype.addFriendToUser = function(username, friendObj) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
 		{
-			this.infoList[i].friendList.push(obj);
+			this.infoList[i].friendList.push(friendObj);
 			storage.setItemSync("myStorage", this.infoList);
 			storage.initSync();
-			return (obj);
+			return (friendObj);
 		}
 	}
 	return(null);
