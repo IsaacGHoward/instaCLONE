@@ -127,6 +127,27 @@
       $("#submit").click(function(){
         if($("#password").val() != $("#password2").val())
           alert("Passwords must match");
+        else if ($("#age").val() > Date.now()) {
+          alert("Enter Valid Birthday");
+        }
+        else if (!$("#email").val()) {
+          alert("Enter Valid Email");
+        }
+        else if (!$("#username").val()) {
+          alert("Fill all fields");
+        }
+        else if (!$("#password").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#password2").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#realname").val()) {
+          alert("Fill all fields");
+        }
+         else if (!$("#age").val()) {
+          alert("Fill all fields");
+        }
         else
         userClicked();
       });
