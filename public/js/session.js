@@ -10,7 +10,7 @@ function logoutClicked(){
 function sessionSuccess(user){
 	$('#username').html(user.username+"'s"+" profile");
 	$('#name').html("Name: " + user.realname);
-	$('#age').html("DOB: " + user.age);
+	$('#age').html("DOB: " + new Date(user.age));
 	$('datejoined').html("Date Joined: " + user.sd);
 
 	let loc;
