@@ -43,7 +43,10 @@ function loggedInUserSuccess(logged_user){
 
 function followResult(result){
 	if(result == true)
+	{
 		console.log("already following");
+			$('#addfriend').html("Following");
+	}
 	else{
 		console.log("not following");
 		$.post('/follow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
