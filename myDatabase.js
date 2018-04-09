@@ -232,6 +232,25 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 	}
 	return (null);
 }
+
+myDatabase.prototype.addCommentToPost = function(postObject, comment) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && postObject.username == this.infoList[i].username)
+		{
+			for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+				if (this.infoList[i] && postObject.timestamp == this.infoList[i].postObjects[j].timestamp)
+				{
+					this.infoList[i].postObjects[j].comments.push(postObject);
+					storage.setItemSync("myStorage", this.infoList);
+					storage.initSync();
+					return(this.infoList[i].postObjects[j]);
+				}
+			}
+		}
+	}
+	return (null);
+}
+
 myDatabase.prototype.getAllPosts = function() {
 let posts = [];
 	for (let i=0;i<this.infoList.length;i++) {
