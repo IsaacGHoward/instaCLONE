@@ -17,6 +17,7 @@ res.sendFile(__dirname + "/public/views/signup.html");
 
 
 router.get("/",function(req,res){
+//	db.deleteAllObjects();
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
@@ -31,7 +32,8 @@ router.post('/follow', function(req,res){
 	console.log("FOLLOW ATTEMPTED");
 	console.log(req.body.localuser.username);
 	console.log(req.body.otheruser);
-	db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
+	var newObj = db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
+	console.log(newObj);
 });
 router.post('/unfollow', function(req,res){
 	//remove friend
@@ -39,12 +41,12 @@ router.post('/unfollow', function(req,res){
 router.get('/checkFollow',function(req,res){
 	var friendlist = db.getAllFriendsofUser(req.query.localuser.username);
 	for (let i=0;i<friendlist.length;i++) {
-		if (friendlist[i] == req.query.otheruser) {
+		if (friendlist[i].username == req.query.otheruser.username) {
 			res.json(true);
 		}
 	}
 	res.json(false);
-})
+});
 
 router.get("/login",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
