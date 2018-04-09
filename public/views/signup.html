@@ -18,10 +18,10 @@
   <div class="form">
     <form class="login-form">
       <h1>Sign Up</h1>
-      <input id="username" type="text" placeholder="username"  />
-      <input id="password" type="password" placeholder="password" />
-      <input id="password2" type="password" placeholder="retype password" />
-      <input id="realname" type="text" placeholder="full name" />
+      <input id="username" type="text" placeholder="username" required pattern="[a-zA-Z0-9]+"  />
+      <input id="password" type="password" placeholder="password" required pattern="[a-zA-Z0-9]+" />
+      <input id="password2" type="password" placeholder="retype password" required pattern="[a-zA-Z0-9]+" />
+      <input id="realname" type="text" placeholder="full name" required pattern="[a-zA-Z]+" />
       <input id="age" type="date" placeholder="birthdate" />
 
       <input id="email" type="email" placeholder="email address" />
