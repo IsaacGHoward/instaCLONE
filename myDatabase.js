@@ -27,6 +27,14 @@ myDatabase.prototype.getArraySize = function() {
 }
 
 //done add or modify.  Complete getAllObjects function.
+myDatabase.prototype.deleteAllObjects = function() {
+	for (let i=0;i<this.infoList.length;i++) {
+		this.infoList[i] = undefined;
+	}
+	storage.setItemSync("myStorage", this.infoList);
+	storage.initSync();
+	return(true);
+}
 myDatabase.prototype.getAllObjects = function() {
 	let objs = [];
 	for (let i=0;i<this.infoList.length;i++) {
@@ -134,13 +142,15 @@ myDatabase.prototype.addFriendToUser = function(username, friendObj) {
 		if (this.infoList[i] && username == this.infoList[i].username)
 		{
 			this.infoList[i].friendList.push(friendObj);
+			console.log(username);
 			storage.setItemSync("myStorage", this.infoList);
 			storage.initSync();
-			return (friendObj);
+			return (this.infoList[i]);
 		}
 	}
 	return(null);
 }
+
 myDatabase.prototype.removeFriend = function(username, friendObj) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
