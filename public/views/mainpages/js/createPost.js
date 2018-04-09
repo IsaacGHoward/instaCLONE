@@ -24,7 +24,8 @@ function submitClicked()
 
 					if (!data)
 							alert("ERROR");
-						
+				    else
+				    	window.location = data.redirect;
 					} ,
 					dataType: "json"
 					});

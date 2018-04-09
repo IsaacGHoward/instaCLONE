@@ -45,8 +45,8 @@ body {
 
     <div class="topnav" style="text-align:center;font-size:17px;">
 
-         <a href="../mainpages/html/feed.html">Feed</a>
-         <a href="../mainpages/html/search.html">Search</a>
+         <a id = 'feed' href="../views/mainpages/html/feed.html">Feed</a>
+         <a id = 'srch' href="../views/mainpages/html/search.html">Search</a>
          <a class="active" href="">Profile</a>
       </div>
     <div id="profiledesc" style="text-align:center;font-size:17px;">
@@ -55,7 +55,7 @@ body {
        <div id = "datejoined">Date Joined:</div>
        <div id = "age">Date of Birth:</div>
        <br>
-       <button id = "newPost" onclick="location.href='../mainpages/html/createPost.html';">NEW POST</button>
+       <button id = "newPost" onclick="location.href='mainpages/html/createPost.html';">NEW POST</button>
     </div>
 
 
@@ -68,7 +68,7 @@ body {
     <ul id="userList"></ul>
     <br>
     <!--<input type="text" placeholder="User search" id='usersearch'></input>-->
-    <form action="public\views\mainpages\html\userprofile.html">
+    <form action="mainpages/html/userprofile.html">
       <input name="username" placeholder="User search"/>
       <input type="submit" value="Go To User">
     </form>
