@@ -141,6 +141,40 @@ myDatabase.prototype.addFriendToUser = function(username, friendObj) {
 	}
 	return(null);
 }
+myDatabase.prototype.removeFriend = function(username, friendObj) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+		{
+			for (let j=0;j<this.infoList[i].friendList.length;j++) {
+				if (this.infoList[i].friendList[j] && friendObj.username == this.infoList[i].friendList[j].username)
+				{
+					this.infoList[i].friendList[j] = undefined;
+					storage.setItemSync("myStorage", this.infoList);
+					storage.initSync();
+					return (friendObj);
+				}
+			}
+		}
+	}
+	return(null);
+}
+myDatabase.prototype.removeFriendThroughUsername = function(username, friendUsername) {
+	for (let i=0;i<this.infoList.length;i++) {
+		if (this.infoList[i] && username == this.infoList[i].username)
+		{
+			for (let j=0;j<this.infoList[i].friendList.length;j++) {
+				if (this.infoList[i].friendList[j] && friendUsername == this.infoList[i].friendList[j].username)
+				{
+					this.infoList[i].friendList[j] = undefined;
+					storage.setItemSync("myStorage", this.infoList);
+					storage.initSync();
+					return (friendObj);
+				}
+			}
+		}
+	}
+	return(null);
+}
 myDatabase.prototype.getAllFriendsofUser = function(username) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
