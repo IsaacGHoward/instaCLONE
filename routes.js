@@ -39,13 +39,14 @@ router.post('/unfollow', function(req,res){
 	//remove friend
 });
 router.get('/checkFollow',function(req,res){
+	var toset = false;
 	var friendlist = db.getAllFriendsofUser(req.query.localuser.username);
 	for (let i=0;i<friendlist.length;i++) {
 		if (friendlist[i].username == req.query.otheruser.username) {
-			res.json(true);
+			toset = true;
 		}
 	}
-	res.json(false);
+	res.json(toset);
 });
 
 router.get("/login",function(req,res){
