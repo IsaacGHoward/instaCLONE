@@ -120,10 +120,12 @@ if (req.body.username == ""
 		return;
 }
 else{
+	var signupDate = new Date();
 	db.addObject({username:req.body.username,
 								password:req.body.password,
 								realname:req.body.realname,
 								age:req.body.age,
+								sd:signupDate,
 							  postObjects:[],
 								friendList:[],
 								userMsgHist : []
