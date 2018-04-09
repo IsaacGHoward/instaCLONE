@@ -225,7 +225,7 @@ router.post('/mainpages/html/fileupload', function(req, res){
 			db.postWithRealname(req.session_state.realname,	postObject);
 
 //console.log(db.getAllPostsWithUsername("a"));
-	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
+	 res.json({redirect:"../../session"});
       });
     });
 });
