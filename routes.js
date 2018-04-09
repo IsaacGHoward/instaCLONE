@@ -29,6 +29,8 @@ router.get("/getuserinfo",function(req,res){
 
 router.post('/follow', function(req,res){
 	console.log("FOLLOW ATTEMPTED");
+	console.log(req.body.localuser.username);
+	console.log(req.body.otheruser);
 	db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
 });
 router.post('/unfollow', function(req,res){
