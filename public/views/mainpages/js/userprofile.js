@@ -54,7 +54,7 @@ $(document).ready(function(){
 		//console.log(c);
 		//$("#postimage").attr("src",c);
 		$("#username").html(l+"'s Profile");
-		user = $.get('/getuserinfo',{'name' : 'l'},sessionSuccess);
+		user = $.get('/getuserinfo',{'name' : "1"},sessionSuccess);
 		console.log(user.realname);
 		//document.getElementById("log").innerHTML = l;
 		//document.getElementById("pass").innerHTML = c;

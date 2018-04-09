@@ -23,8 +23,8 @@ router.get("/",function(req,res){
 router.get("/getuserinfo",function(req,res){
   console.log("get user info");
 	console.log("req query name : " + req.query.name);
-	console.log(db.getObjectWithUsername(req.query.name));
-	res.json(db.getObjectWithUsername(req.query.name));
+	console.log(db.getObjectWithRealName(req.query.name));
+	res.json(db.getObjectWithRealName(req.query.name));
 })
 
 router.get("/login",function(req,res){
