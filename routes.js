@@ -213,7 +213,8 @@ router.post('/mainpages/html/fileupload', function(req, res){
 							  caption: fields.caption ,
 							  imageLocation:(__dirname + '/public/images/' + files.filetoupload.name),
 							  imageName: files.filetoupload.name,
-							  image: files.filetoupload
+							  image: files.filetoupload,
+								comments: []
 						 		}
 			/////
 			db.postWithUsername(req.session_state.username, postObject);
