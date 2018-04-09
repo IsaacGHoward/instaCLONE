@@ -197,7 +197,7 @@ router.post("/submitPost",function(req,res){
 	//captionText = req.body.caption;
 	//console.log(captionText);
 
-		res.json({});
+		res.json({redirect:"../../mainpages/html/feed.html"})
 
 
 });
