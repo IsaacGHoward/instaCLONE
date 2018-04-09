@@ -44,6 +44,7 @@ function loggedInUserSuccess(logged_user){
 function followResult(result){
 	if(result == true)
 		console.log("already following");
+	//unfollow
 	else{
 		console.log("not following");
 		$.post('/follow' ,{'localuser' : loggeduser , 'otheruser' : user},null );
