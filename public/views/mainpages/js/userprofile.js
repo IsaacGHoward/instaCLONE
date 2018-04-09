@@ -22,10 +22,9 @@ function sessionSuccess(User){
 	userposts.sort(function(a, b) {
 		return b.timestamp - a.timestamp;
 	});
-	console.log("/public/images/" + String("bison.jpg") +"");
 	for (let i=0;userposts.length;i++) {
 		loc = userposts[i].imageName;
-
+		console.log("once");
 	$('#postlist').append($('<img>',{src:'/public/images/' + String(loc)}));
 	$('#postlist').append("<br>");
 	$('#postlist').append(userposts[i].caption);
