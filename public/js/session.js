@@ -11,10 +11,10 @@ function sessionSuccess(user){
 	$('#username').html(user.username+"'s"+" profile");
 	$('#name').html("Name: " + user.realname);
 	$('#age').html("DOB: " + new Date(user.age));
-	$('datejoined').html("Date Joined: " + user.sd);
+	$('#datejoined').html("Date Joined: " + user.sd);
 
 	let loc;
-  var userposts = user.postObjects
+  var userposts = user.postObjects;
 	userposts.sort(function(a, b) {
 		return b.timestamp - a.timestamp;
 	});
