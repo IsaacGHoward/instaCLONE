@@ -1,10 +1,6 @@
-///Eilise
-//When we send a message, we have to store the timestamp and who it was sent to//
-//basically the whole message has to be object with who it was sent to and the timestamp
 
-
-
-
+//var mongoose = require('mongoose');
+//var User = require('./models/info.js');
 var storage = require('node-persist');
 var myStorage = storage.create({"username" : "admin",
 			 													"password" : "password"});
@@ -12,10 +8,8 @@ myStorage.initSync();
 storage.initSync();
 
 let myDatabase = function() {
-
 	this.infoList = storage.getItemSync("myStorage");
-
-
+	//this.infoList = [];
 }
 myDatabase.prototype.createAdmin = function() {
 	return this.infoList.push({"username" : "admin",
@@ -43,6 +37,19 @@ myDatabase.prototype.getAllObjects = function() {
 		}
 	}
 	return(objs);
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+			let objs = [];
+			for (let i=0;i<info.length;i++) {
+				objs.push({ident:info[i].ident,name:info[i].name});
+			}
+			res.json(objs);
+		}
+	});
+	*/
 }
 
 myDatabase.prototype.getAllUsernames = function() {
@@ -94,6 +101,24 @@ myDatabase.prototype.getObjectWithRealName = function(realname) {
 			return (this.infoList[i]);
 	}
 	return (null);
+	/*
+	User.find({realname:realname},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				res.json({ name: info[0].name });
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 }
 
 myDatabase.prototype.getObjectWithUsername = function(username) {
@@ -135,6 +160,16 @@ myDatabase.prototype.addObject = function(obj) {
 	storage.setItemSync("myStorage", this.infoList);
 	storage.initSync();
 	return (obj);
+
+	/*
+	User.create(obj,function(error,info) {
+			if (error) {
+					 res.json(null);
+			}
+
+			res.json(info);
+	});
+	*/
 }
 
 myDatabase.prototype.addFriendToUser = function(username, friendObj) {
@@ -364,6 +399,17 @@ myDatabase.prototype.changeObject = function(obj) {
 		}
 	}
 	return (null);
+	/*
+	User.findOneAndUpdate({realname:obj.realname},{obj},function(error,info) {
+						if (error) {
+								 res.json(null);
+						}
+						else if (info == null) {
+								 res.json(null);
+						}
+						 res.json(info);
+				});
+	*/
 }
 
 
@@ -413,9 +459,6 @@ myDatabase.prototype.changeObject = function(obj) {
 		return (messages);
 	}
 
-
-
-
 //done add or modify.  Complete deleteObjectWithID function.
 myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 	for (let i=0;i<this.infoList.length;i++) {
@@ -429,9 +472,15 @@ myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 			return(realname);
 		}
 	}
-
-
 	return (null);
+	/*
+	User.remove({realname:realname},function(error,removed) {
+			if (error) {
+					 res.json(null);
+			}
+			 res.json(removed.result);
+	});
+	*/
 }
 
 
