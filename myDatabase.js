@@ -1,4 +1,4 @@
-
+//var Promise = require('promise');
 //var mongoose = require('mongoose');
 //var User = require('./models/info.js');
 var storage = require('node-persist');
@@ -61,6 +61,19 @@ myDatabase.prototype.getAllUsernames = function() {
 		}
 	}
 	return(usernames);
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+			let ages = [];
+			for (let i=0;i<info.length;i++) {
+				objs.push(info[i].username);
+			}
+			res.json(objs);
+		}
+	});
+	*/
 }
 
 myDatabase.prototype.getAllRealNames = function() {
@@ -71,6 +84,19 @@ myDatabase.prototype.getAllRealNames = function() {
 		}
 	}
 	return(realNames);
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+			let ages = [];
+			for (let i=0;i<info.length;i++) {
+				objs.push(info[i].realname);
+			}
+			res.json(objs);
+		}
+	});
+	*/
 }
 
 myDatabase.prototype.getAllAges = function() {
@@ -81,19 +107,21 @@ myDatabase.prototype.getAllAges = function() {
 		}
 	}
 	return(ages);
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+			let ages = [];
+			for (let i=0;i<info.length;i++) {
+				objs.push(info[i].age);
+			}
+			res.json(objs);
+		}
+	});
+	*/
 }
 
-myDatabase.prototype.getObjectAtIndex = function(index) {
-	if (index < 0 || index >= this.infoList.length)
-		return (null);
-	else {
-		if (!this.infoList[index]) {
-			return(null);
-		} else {
-			return(this.infoList[index]);
-		}
-	}
-}
 
 myDatabase.prototype.getObjectWithRealName = function(realname) {
 	for (let i=0;i<this.infoList.length;i++) {
@@ -127,27 +155,24 @@ myDatabase.prototype.getObjectWithUsername = function(username) {
 			return (this.infoList[i]);
 	}
 	return (null);
-}
-
-myDatabase.prototype.addObjectAtIndex = function(obj,index) {
-	if (index < 0)
-		return (null);
-	if (index < this.infoList.length)
-	{
-		if (!this.infoList[index]) {
-			this.infoList[index] = obj;
-			return (obj);
-		}
-		else {
-			return (null);
-		}
-	}
-	else
-		this.infoList[index] = obj;
-
-		storage.setItemSync("myStorage", this.infoList);
-		storage.initSync();
-	return (obj);
+	/*
+	User.find({username:username},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				res.json(user);
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 }
 
 
@@ -184,6 +209,17 @@ myDatabase.prototype.addFriendToUser = function(username, friendObj) {
 		}
 	}
 	return(null);
+/*
+	Team.findOneAndUpdate({username:username},{$push:{friendList:friendObj}},function(error,info) {
+						if (error) {
+								 res.json(null);
+						}
+						else if (info == null) {
+								 res.json(null);
+						}
+						 res.json(info);
+				});
+				*/
 }
 
 myDatabase.prototype.removeFriend = function(username, friendObj) {
@@ -202,6 +238,17 @@ myDatabase.prototype.removeFriend = function(username, friendObj) {
 		}
 	}
 	return(null);
+	/*
+		Team.findOneAndUpdate({username:username},{$pull:{friendList:{username:friendObj.username}}},function(error,info) {
+							if (error) {
+									 res.json(null);
+							}
+							else if (info == null) {
+									 res.json(null);
+							}
+							 res.json(info);
+					});
+					*/
 }
 myDatabase.prototype.removeFriendThroughUsername = function(username, friendUsername) {
 	for (let i=0;i<this.infoList.length;i++) {
@@ -219,6 +266,17 @@ myDatabase.prototype.removeFriendThroughUsername = function(username, friendUser
 		}
 	}
 	return(null);
+	/*
+		Team.findOneAndUpdate({username:username},{$pull:{friendList:{username:friendUsername}}},function(error,info) {
+							if (error) {
+									 res.json(null);
+							}
+							else if (info == null) {
+									 res.json(null);
+							}
+							 res.json(info);
+					});
+					*/
 }
 myDatabase.prototype.getAllFriendsofUser = function(username) {
 	for (let i=0;i<this.infoList.length;i++) {
@@ -226,6 +284,24 @@ myDatabase.prototype.getAllFriendsofUser = function(username) {
 			return (this.infoList[i].friendList);
 	}
 	return(null);
+	/*
+	User.find({username:username},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				res.json(info.friendList);
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 }
 myDatabase.prototype.findifFriend = function(username,potFriendUsername) {
 	for (let i=0;i<this.infoList.length;i++) {
