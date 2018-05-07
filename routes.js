@@ -222,14 +222,13 @@ router.post('/mainpages/html/fileupload', function(req, res){
 						 		}
 			/////
 			db.postWithUsername(req.session_state.username, postObject);
-			db.postWithRealname(req.session_state.realname,	postObject);
+			//db.postWithRealname(req.session_state.realname,	postObject);
 
 //console.log(db.getAllPostsWithUsername("a"));
 	    res.sendFile(__dirname + "/public/views/mainpages/html/feed.html");
       });
     });
 });
-
 
 
 module.exports = router;
