@@ -1,6 +1,6 @@
 //var Promise = require('promise');
 //var mongoose = require('mongoose');
-//var User = require('./models/info.js');
+//var User = require('./models/User.js');
 var storage = require('node-persist');
 var myStorage = storage.create({"username" : "admin",
 			 													"password" : "password"});
@@ -114,9 +114,9 @@ myDatabase.prototype.getAllAges = function() {
 		} else {
 			let ages = [];
 			for (let i=0;i<info.length;i++) {
-				objs.push(info[i].age);
+				ages.push(info[i].age);
 			}
-			res.json(objs);
+			res.json(ages);
 		}
 	});
 	*/
@@ -359,6 +359,7 @@ myDatabase.prototype.addCommentToPost = function(postObject, comment) {
 			}
 		}
 	}
+	///////////////////////THIS IS WHERE I AM
 	return (null);
 }
 
@@ -370,6 +371,19 @@ let posts = [];
 			}
 	}
 	return (posts);
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+			let posts = [];
+			for (let i=0;i<info.length;i++) {
+				posts.push(info[i].username);
+			}
+			res.json(posts);
+		}
+	});
+	*/
 }
 myDatabase.prototype.getAllPostsofFriends = function(username) {
 let posts = [];
@@ -400,6 +414,24 @@ myDatabase.prototype.getAllPostsWithUsername = function(username) {
 					return(this.infoList[i].postObjects);
 	}
 	return (null);
+	/*
+	User.find({username:username},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				res.json(info.postObjects);
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 }
 myDatabase.prototype.getPostWithUsernameandLabel = function(username, label) {
 
@@ -414,6 +446,26 @@ myDatabase.prototype.getPostWithUsernameandLabel = function(username, label) {
 
 	}
 	return (null);
+	/*
+	User.find({username:username},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+				res.json(info.postObjects);
+				}
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 }
 
 myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
@@ -450,6 +502,17 @@ myDatabase.prototype.changeObjectWithUsername = function(obj,  username) {
 			return (obj);
 	}
 		return (null);
+		/*
+		User.findOneAndUpdate({username:username},{obj},function(error,info) {
+							if (error) {
+									 res.json(null);
+							}
+							else if (info == null) {
+									 res.json(null);
+							}
+							 res.json(info);
+					});
+		*/
 }
 
 myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
@@ -461,6 +524,17 @@ myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 			return (obj);
 	}
 		return (null);
+		/*
+		User.findOneAndUpdate({realname:realname},{obj},function(error,info) {
+							if (error) {
+									 res.json(null);
+							}
+							else if (info == null) {
+									 res.json(null);
+							}
+							 res.json(info);
+					});
+		*/
 }
 
 //done add or modify.  Complete changeObject function.
