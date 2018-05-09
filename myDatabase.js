@@ -396,15 +396,50 @@ let friends = [];
 				}
 		}
 	}
+	/*
+	User.find({username:username},function(error,info) {
+			if (error) {
+					res.json (null);
+			}
+			else if (info == null) {
+					res.json (null);
+			}
+			if (info.length == 1)
+			{
+				friends = info.friendList;
+				next();
+			}
+			else
+			{
+					res.json (null);
+			}
+	 });
+	*/
 	for (let k=0;k<this.infoList.length;k++) {
-		for (let h=0;h<this.friends.length;h++) {
+		for (let h=0;h<friends.length;h++) {
 		if(this.infoList[k] && friends[h].username == this.infoList[k].username)
 		{
 						posts.push(this.infoList[k].postObjects[j]);
 		}
 	}
 	}
-
+	/*
+	User.find({},function(error,info) {
+		if (error) {
+			res.json(null);
+		} else {
+		for (let k=0;k<info.length;k++) {
+			for (let h=0;h<friends.length;h++) {
+				if(info[k] && friends[h].username == info[k].username)
+				{
+								posts.push(info[k].postObjects[j]);
+				}
+			}
+		}
+			res.json(posts);
+		}
+	});
+	*/
 	return (posts);
 }
 myDatabase.prototype.getAllPostsWithUsername = function(username) {
