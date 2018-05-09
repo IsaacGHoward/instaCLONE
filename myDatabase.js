@@ -399,10 +399,10 @@ let friends = [];
 	/*
 	User.find({username:username},function(error,info) {
 			if (error) {
-					res.json (null);
+					reject (null);
 			}
 			else if (info == null) {
-					res.json (null);
+					reject (null);
 			}
 			if (info.length == 1)
 			{
@@ -411,7 +411,7 @@ let friends = [];
 			}
 			else
 			{
-					res.json (null);
+					reject (null);
 			}
 	 });
 	*/
@@ -426,7 +426,7 @@ let friends = [];
 	/*
 	User.find({},function(error,info) {
 		if (error) {
-			res.json(null);
+			reject(null);
 		} else {
 		for (let k=0;k<info.length;k++) {
 			for (let h=0;h<friends.length;h++) {
@@ -436,7 +436,7 @@ let friends = [];
 				}
 			}
 		}
-			res.json(posts);
+			resolve(posts);
 		}
 	});
 	*/
@@ -452,18 +452,18 @@ myDatabase.prototype.getAllPostsWithUsername = function(username) {
 	/*
 	User.find({username:username},function(error,info) {
 			if (error) {
-					res.json (null);
+					resolve (null);
 			}
 			else if (info == null) {
-					res.json (null);
+					reject (null);
 			}
 			if (info.length == 1)
 			{
-				res.json(info.postObjects);
+				resolve(info.postObjects);
 			}
 			else
 			{
-					res.json (null);
+					reject (null);
 			}
 	 });
 	*/
@@ -484,20 +484,20 @@ myDatabase.prototype.getPostWithUsernameandLabel = function(username, label) {
 	/*
 	User.find({username:username},function(error,info) {
 			if (error) {
-					res.json (null);
+					reject (null);
 			}
 			else if (info == null) {
-					res.json (null);
+					reject (null);
 			}
 			if (info.length == 1)
 			{
 				for (let j=0;j<this.infoList[i].postObjects.length;j++) {
-				res.json(info.postObjects);
+				resolve(info.postObjects);
 				}
 			}
 			else
 			{
-					res.json (null);
+					resolve (null);
 			}
 	 });
 	*/
@@ -521,7 +521,7 @@ myDatabase.prototype.deletePostWithUsernameAndLabel= function(username, label) {
 								}
 							}
 					}
-
+/////////////////////////WORK ON THIS
 		}
 	}
 }
@@ -540,12 +540,12 @@ myDatabase.prototype.changeObjectWithUsername = function(obj,  username) {
 		/*
 		User.findOneAndUpdate({username:username},{obj},function(error,info) {
 							if (error) {
-									 res.json(null);
+									 reject(null);
 							}
 							else if (info == null) {
-									 res.json(null);
+									 reject(null);
 							}
-							 res.json(info);
+							 resolve(info);
 					});
 		*/
 }
@@ -562,12 +562,12 @@ myDatabase.prototype.changeObjectWithRealName = function(obj,  realname) {
 		/*
 		User.findOneAndUpdate({realname:realname},{obj},function(error,info) {
 							if (error) {
-									 res.json(null);
+									 reject(null);
 							}
 							else if (info == null) {
-									 res.json(null);
+									 reject(null);
 							}
-							 res.json(info);
+							 resolve(info);
 					});
 		*/
 }
@@ -587,13 +587,14 @@ myDatabase.prototype.changeObject = function(obj) {
 	/*
 	User.findOneAndUpdate({realname:obj.realname},{obj},function(error,info) {
 						if (error) {
-								 res.json(null);
+								 reject(null);
 						}
 						else if (info == null) {
-								 res.json(null);
+								 reject(null);
 						}
-						 res.json(info);
+						 resolve(info);
 				});
+
 	*/
 }
 
@@ -609,6 +610,17 @@ myDatabase.prototype.changeObject = function(obj) {
 			}
 		}
 		return (null);
+		/*
+			Team.findOneAndUpdate({username:username},{$push:{userMsgHist:message}},function(error,info) {
+								if (error) {
+										 reject(null);
+								}
+								else if (info == null) {
+										 reject(null);
+								}
+								 resolve(info);
+						});
+						*/
 	}
 	myDatabase.prototype.getUserMsgHistory = function(username) {
 		for (let i=0;i<this.infoList.length;i++) {
@@ -618,11 +630,31 @@ myDatabase.prototype.changeObject = function(obj) {
 			}
 		}
 		return (null);
+		/*
+		User.find({username:username},function(error,info) {
+				if (error) {
+						reject (null);
+				}
+				else if (info == null) {
+						reject (null);
+				}
+				if (info.length == 1)
+				{
+					for (let j=0;j<this.infoList[i].postObjects.length;j++) {
+					resolve(info.postObjects);
+					}
+				}
+				else
+				{
+						reject (null);
+				}
+		 });
+		*/
 	}
 	myDatabase.prototype.getAllMessagesToUser = function(username) {
 		let messages = [];
 		for (let i=0;i<this.infoList.length;i++) {
-			for (let j=0;j<this.infoList.length;j++) {
+			for (let j=0;j<this.infoList.userMsgHist.length;j++) {
 			if (this.infoList[i] && username == this.infoList[i].userMsgHist[j].username)
 			{
 					messages.push(this.infoList[i].userMsgHist[j].message);
@@ -630,6 +662,23 @@ myDatabase.prototype.changeObject = function(obj) {
 		}
 		}
 		return (messages);
+		/*
+		User.find({},function(error,info) {
+			if (error) {
+				reject(null);
+			} else {
+			for (let k=0;k<info.length;k++) {
+				for (let h=0;h<info.userMsgHist.length;h++) {
+					if(info[k] && username == info[k].userMsgHist[h].username)
+					{
+									messages.push(info[k].userMsgHist[h].message);
+					}
+				}
+			}
+				resolve(messages);
+			}
+		});
+		*/
 	}
 	myDatabase.prototype.getAllMessagesToUserFromUser = function(toUsername,fromUsername) {
 		let messages = [];
@@ -642,6 +691,23 @@ myDatabase.prototype.changeObject = function(obj) {
 		}
 		}
 		return (messages);
+		/*
+		User.find({},function(error,info) {
+			if (error) {
+				reject(null);
+			} else {
+			for (let k=0;k<info.length;k++) {
+				for (let h=0;h<info.userMsgHist.length;h++) {
+					if(info[k] && toUsername == info[k].userMsgHist[h].username && fromUsername == info[k].username)
+					{
+									messages.push(info[k].userMsgHist[h].message);
+					}
+				}
+			}
+				resolve(messages);
+			}
+		});
+		*/
 	}
 
 //done add or modify.  Complete deleteObjectWithID function.
@@ -661,9 +727,9 @@ myDatabase.prototype.deleteObjectWithRealName = function(realname) {
 	/*
 	User.remove({realname:realname},function(error,removed) {
 			if (error) {
-					 res.json(null);
+					 reject(null);
 			}
-			 res.json(removed.result);
+			 resolve(removed.result);
 	});
 	*/
 }
