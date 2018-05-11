@@ -18,17 +18,6 @@ myDatabase.prototype.createAdmin = function() {
 
 myDatabase.prototype.getArraySize = function() {
 	return this.infoList.length;
-	/*
-	new Promise(function(resolve,reject){
-	User.find({},function(error,info) {
-		if (error) {
-			reject(error)
-		} else {
-			resolve(info.length);
-		}
-	});
-});
-	*/
 }
 
 //done add or modify.  Complete getAllObjects function.
@@ -49,19 +38,17 @@ myDatabase.prototype.getAllObjects = function() {
 	}
 	return(objs);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({},function(error,info) {
 		if (error) {
-			reject(null);
+			res.json(null);
 		} else {
 			let objs = [];
 			for (let i=0;i<info.length;i++) {
 				objs.push({ident:info[i].ident,name:info[i].name});
 			}
-			resolve(objs);
+			res.json(objs);
 		}
 	});
-});
 	*/
 }
 
@@ -75,19 +62,17 @@ myDatabase.prototype.getAllUsernames = function() {
 	}
 	return(usernames);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({},function(error,info) {
 		if (error) {
-			reject(null);
+			res.json(null);
 		} else {
-			let username = [];
+			let ages = [];
 			for (let i=0;i<info.length;i++) {
-				username.push(info[i].username);
+				objs.push(info[i].username);
 			}
-			resolve(username);
+			res.json(objs);
 		}
 	});
-});
 	*/
 }
 
@@ -100,19 +85,17 @@ myDatabase.prototype.getAllRealNames = function() {
 	}
 	return(realNames);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({},function(error,info) {
 		if (error) {
-			reject(null);
+			res.json(null);
 		} else {
-			let names = [];
+			let ages = [];
 			for (let i=0;i<info.length;i++) {
-				names.push(info[i].realname);
+				objs.push(info[i].realname);
 			}
-			resolve(names);
+			res.json(objs);
 		}
 	});
-});
 	*/
 }
 
@@ -125,19 +108,17 @@ myDatabase.prototype.getAllAges = function() {
 	}
 	return(ages);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({},function(error,info) {
 		if (error) {
-			reject(null);
+			res.json(null);
 		} else {
 			let ages = [];
 			for (let i=0;i<info.length;i++) {
-				ages.push(info[i].age);
+				objs.push(info[i].age);
 			}
-			resolve(ages);
+			res.json(objs);
 		}
 	});
-});
 	*/
 }
 
@@ -149,24 +130,22 @@ myDatabase.prototype.getObjectWithRealName = function(realname) {
 	}
 	return (null);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({realname:realname},function(error,info) {
 			if (error) {
-					reject (null);
+					res.json (null);
 			}
 			else if (info == null) {
-					reject (null);
+					res.json (null);
 			}
 			if (info.length == 1)
 			{
-				resolve({ name: info[0].name });
+				res.json({ name: info[0].name });
 			}
 			else
 			{
-					reject (null);
+					res.json (null);
 			}
 	 });
- });
 	*/
 }
 
@@ -177,24 +156,22 @@ myDatabase.prototype.getObjectWithUsername = function(username) {
 	}
 	return (null);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({username:username},function(error,info) {
 			if (error) {
-					reject (null);
+					res.json (null);
 			}
 			else if (info == null) {
-					reject (null);
+					res.json (null);
 			}
 			if (info.length == 1)
 			{
-				resolve(user);
+				res.json(user);
 			}
 			else
 			{
-					reject (null);
+					res.json (null);
 			}
 	 });
- });
 	*/
 }
 
@@ -210,15 +187,13 @@ myDatabase.prototype.addObject = function(obj) {
 	return (obj);
 
 	/*
-	new Promise(function(resolve,reject){
 	User.create(obj,function(error,info) {
 			if (error) {
-					 reject(null);
+					 res.json(null);
 			}
 
-			resolve(info);
+			res.json(info);
 	});
-});
 	*/
 }
 
@@ -235,17 +210,15 @@ myDatabase.prototype.addFriendToUser = function(username, friendObj) {
 	}
 	return(null);
 /*
-new Promise(function(resolve,reject){
 	Team.findOneAndUpdate({username:username},{$push:{friendList:friendObj}},function(error,info) {
 						if (error) {
-								 reject(null);
+								 res.json(null);
 						}
 						else if (info == null) {
-								 reject(null);
+								 res.json(null);
 						}
-						 resolve(info);
+						 res.json(info);
 				});
-			});
 				*/
 }
 
@@ -266,17 +239,15 @@ myDatabase.prototype.removeFriend = function(username, friendObj) {
 	}
 	return(null);
 	/*
-	new Promise(function(resolve,reject){
 		Team.findOneAndUpdate({username:username},{$pull:{friendList:{username:friendObj.username}}},function(error,info) {
 							if (error) {
-									 resject(null);
+									 res.json(null);
 							}
 							else if (info == null) {
-									 reject(null);
+									 res.json(null);
 							}
-							 resolve(info);
+							 res.json(info);
 					});
-				});
 					*/
 }
 myDatabase.prototype.removeFriendThroughUsername = function(username, friendUsername) {
@@ -296,17 +267,15 @@ myDatabase.prototype.removeFriendThroughUsername = function(username, friendUser
 	}
 	return(null);
 	/*
-	new Promise(function(resolve,reject){
-		User.findOneAndUpdate({username:username},{$pull:{friendList:{username:friendUsername}}},function(error,info) {
+		Team.findOneAndUpdate({username:username},{$pull:{friendList:{username:friendUsername}}},function(error,info) {
 							if (error) {
-									 reject(null);
+									 res.json(null);
 							}
 							else if (info == null) {
-									 reject(null);
+									 res.json(null);
 							}
-							 resolve(info);
+							 res.json(info);
 					});
-				});
 					*/
 }
 myDatabase.prototype.getAllFriendsofUser = function(username) {
@@ -316,55 +285,35 @@ myDatabase.prototype.getAllFriendsofUser = function(username) {
 	}
 	return(null);
 	/*
-	new Promise(function(resolve,reject){
 	User.find({username:username},function(error,info) {
 			if (error) {
-					reject (null);
+					res.json (null);
 			}
 			else if (info == null) {
-					reject (null);
+					res.json (null);
 			}
 			if (info.length == 1)
 			{
-				resolve(info.friendList);
+				res.json(info.friendList);
 			}
 			else
 			{
-					reject (null);
+					res.json (null);
 			}
 	 });
- });
 	*/
 }
 myDatabase.prototype.findifFriend = function(username,potFriendUsername) {
 	for (let i=0;i<this.infoList.length;i++) {
 		if (this.infoList[i] && username == this.infoList[i].username)
 			{
-				for (let j=0;j<this.infoList[i].friendList.length;j++) {
+				for (let j=0;j<this.infoList[i].friendList;j++) {
 					if (this.infoList[i].friendList[j] && potFriendUsername == this.infoList[i].friendList[j].username)
 						return (true);
 				}
 			}
 	}
 	return(false);
-	/*
-	new Promise(function(resolve,reject){
-	User.find({username:username},function(error,info) {
-			if (error) {
-					reject (null);
-			}
-			for (let i=0;i<info.length;i++) {
-				if (info[i] && username == info[i].username)
-					{
-						for (let j=0;j<info[i].friendList.length;j++) {
-							if (info[i].friendList[j] && potFriendUsername == info[i].friendList[j].username)
-								resolve (true);
-						}
-					}
-			}
-	 });
- });
-	*/
 }
 
 myDatabase.prototype.postWithUsername = function(username, postObject) {
@@ -380,19 +329,6 @@ myDatabase.prototype.postWithUsername = function(username, postObject) {
 		}
 	}
 	return (null);
-	/*
-	new Promise(function(resolve,reject){
-		Team.findOneAndUpdate({username:username},{$push:{postObjects:postObject}},function(error,info) {
-							if (error) {
-									 reject(null);
-							}
-							else if (info == null) {
-									 reject(null);
-							}
-							 resolve(info);
-					});
-				});
-				*/
 }
 myDatabase.prototype.postWithRealname = function(realname, postObject) {
 
@@ -406,19 +342,6 @@ myDatabase.prototype.postWithRealname = function(realname, postObject) {
 		}
 	}
 	return (null);
-	/*
-	new Promise(function(resolve,reject){
-		Team.findOneAndUpdate({realname:realname},{$push:{postObjects:postObject}},function(error,info) {
-							if (error) {
-									 reject(null);
-							}
-							else if (info == null) {
-									 reject(null);
-							}
-							 resolve(info);
-					});
-				});
-				*/
 }
 
 myDatabase.prototype.addCommentToPost = function(postObject, comment) {
@@ -437,48 +360,16 @@ myDatabase.prototype.addCommentToPost = function(postObject, comment) {
 		}
 	}
 	return (null);
-	/*
-	////////////////////////////////////////////////WORK ON THIS
-	new Promise(function(resolve,reject){
-		Team.findOneAndUpdate({realname:realname},{$push:{postObjects:postObject}},function(error,info) {
-							if (error) {
-									 reject(null);
-							}
-							else if (info == null) {
-									 reject(null);
-							}
-							 resolve(info);
-					});
-				});
-				*/
-
 }
 
 myDatabase.prototype.getAllPosts = function() {
 let posts = [];
 	for (let i=0;i<this.infoList.length;i++) {
 		for (let j=0;j<this.infoList[i].postObjects.length;j++) {
-					posts.push(this.infoList[i].postObjects[j]);
+					posts.push(this.infoList[i].postObjects[i]);
 			}
 	}
 	return (posts);
-	/*
-	new Promise(function(resolve,reject){
-	User.find({},function(error,info) {
-		if (error) {
-			reject(null);
-		} else {
-			let posts = [];
-			for (let i=0;i<info.length;i++) {
-				for (let j=0;j<info[i].postObjects.length;j++) {
-							posts.push(info[i].postObjects[j]);
-					}
-			}
-			resolve(posts);
-		}
-	});
-});
-	*/
 }
 myDatabase.prototype.getAllPostsofFriends = function(username) {
 let posts = [];
