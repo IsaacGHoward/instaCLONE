@@ -38,6 +38,8 @@ myDatabase.prototype.getAllObjects = function() {
 	}
 	return(objs);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -62,6 +64,8 @@ myDatabase.prototype.getAllUsernames = function() {
 	}
 	return(usernames);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -85,6 +89,8 @@ myDatabase.prototype.getAllRealNames = function() {
 	}
 	return(realNames);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -108,6 +114,8 @@ myDatabase.prototype.getAllAges = function() {
 	}
 	return(ages);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -130,6 +138,8 @@ myDatabase.prototype.getObjectWithRealName = function(realname) {
 	}
 	return (null);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({realname:realname},function(error,info) {
 			if (error) {
 					res.json (null);
@@ -156,6 +166,8 @@ myDatabase.prototype.getObjectWithUsername = function(username) {
 	}
 	return (null);
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.find({username:username},function(error,info) {
 			if (error) {
 					res.json (null);
@@ -187,6 +199,8 @@ myDatabase.prototype.addObject = function(obj) {
 	return (obj);
 
 	/*
+
+var promise = new Promise(function (resolve, reject) {
 	User.create(obj,function(error,info) {
 			if (error) {
 					 res.json(null);
