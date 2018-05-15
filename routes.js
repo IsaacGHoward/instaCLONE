@@ -189,7 +189,7 @@ router.post("/submitPost",function(req,res){
 	//captionText = req.body.caption;
 	//console.log(captionText);
 
-		res.json({});
+		res.json({redirect:"../../mainpages/html/feed.html"});
 
 
 });
@@ -222,14 +222,13 @@ router.post('/mainpages/html/fileupload', function(req, res){
 						 		}
 			/////
 			db.postWithUsername(req.session_state.username, postObject);
-			db.postWithRealname(req.session_state.realname,	postObject);
+			//db.postWithRealname(req.session_state.realname,	postObject);
 
 //console.log(db.getAllPostsWithUsername("a"));
-	    res.sendFile(__dirname + "/public/images/" + files.filetoupload.name);
+	    res.sendFile(__dirname + "/public/views/mainpages/html/feed.html");
       });
     });
 });
-
 
 
 module.exports = router;
