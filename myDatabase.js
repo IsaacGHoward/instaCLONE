@@ -1,6 +1,8 @@
 //var Promise = require('promise');
 //var mongoose = require('mongoose');
 //var User = require('./models/User.js');
+///////http://mongoosejs.com/docs/4.x/docs/promises.html
+///https://catalog-archive.colorado.edu/2015-16/node/2346.html
 var storage = require('node-persist');
 var myStorage = storage.create({"username" : "admin",
 			 													"password" : "password"});
