@@ -31,6 +31,6 @@ var userSchema =  mongoose.Schema({
   userMsgHist : []
 });
 
-var Info = mongoose.model('Info', userSchema);
+var User = mongoose.model('User', userSchema);
 
-module.exports = Info;
+module.exports = User;
