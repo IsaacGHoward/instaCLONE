@@ -199,7 +199,7 @@ router.post('/login',
 			//https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client to try to fix the
 			//cmd error resulting from this
 
-}/*
+/*
 passport.authenticate("login", {
 	successRedirect: "/successlogin",
   failureRedirect: "/faillogin",
