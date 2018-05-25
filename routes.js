@@ -168,8 +168,10 @@ else{
 
 
 
-router.post('/login',
-	console.log("login");
+router.post('/login', 
+
+	function(req, res){
+	console.log("login")
 	let objs = db.getAllObjects();
 //add or modify.  Determine if the login info is valid.  If the login is valid,
 //                  set req.session_state.??? to a valid value.
@@ -204,7 +206,7 @@ passport.authenticate("login", {
 	successRedirect: "/successlogin",
   failureRedirect: "/faillogin",
   failureFlash: true
-})*/);
+})*/});
 router.get("/postPicture",function(req,res){
 	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
 	//and specify its "label"
