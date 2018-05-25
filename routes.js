@@ -6,6 +6,7 @@ var myDatabase = require('./myDatabase');
 var clientSessions = require('client-sessions');
 var formidable = require('formidable');
 var fs = require('fs');
+var passport = require("passport");
 var db = new myDatabase();
 
 var captionText;
@@ -14,7 +15,6 @@ router.get("/signup",function(req,res){
 
 res.sendFile(__dirname + "/public/views/signup.html");
 });
-
 
 router.get("/",function(req,res){
 //	db.deleteAllObjects();
@@ -32,7 +32,7 @@ router.post('/follow', function(req,res){
 	//console.log("FOLLOW ATTEMPTED");
 	//console.log(req.body.localuser.username);
 	//console.log(req.body.otheruser);
-	var newObj = db.addFriendToUser(req.body.localuser.username,req.body.otheruser );
+	var newObj = db.addFriendToUser(req.body.localuser.username,req.body.otheruser);
 	//console.log(newObj);
 });
 router.post('/unfollow', function(req,res){
@@ -98,7 +98,35 @@ else
 		res.json(null);
 
 });
+router.get("/successroot", function(req, res) {
+console.log("get successroot");
+	res.json({redirect:"/session"});
+});
 
+router.get("/failroot", function(req, res) {
+console.log("get failroot");
+	res.json({redirect:"/login"});
+});
+
+router.get("/successsignup", function(req, res) {
+console.log("get successsignup");
+	res.json({redirect:"/session"});
+});
+
+router.get("/failsignup", function(req, res) {
+console.log("get failsignup");
+	res.json({redirect:"/login"});
+});
+
+router.get("/successlogin", function(req, res) {
+console.log("get successlogin");
+	res.json({redirect:"/session"});
+});
+router.get("/faillogin", function(req, res) {
+console.log("get faillogin");
+	res.json({redirect:"/login"});
+
+});
 
 router.post('/signup', function(req, res){
 //add or modify.  Check if a valid signup.  If the signup is valid,
@@ -140,7 +168,7 @@ else{
 
 
 
-router.post('/login', function(req, res){
+router.post('/login',
 	console.log("login");
 	let objs = db.getAllObjects();
 //add or modify.  Determine if the login info is valid.  If the login is valid,
@@ -171,7 +199,12 @@ router.post('/login', function(req, res){
 			//https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client to try to fix the
 			//cmd error resulting from this
 
-});
+}/*
+passport.authenticate("login", {
+	successRedirect: "/successlogin",
+  failureRedirect: "/faillogin",
+  failureFlash: true
+})*/);
 router.get("/postPicture",function(req,res){
 	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
 	//and specify its "label"
@@ -210,7 +243,7 @@ router.post('/mainpages/html/fileupload', function(req, res){
 //console.log("today is " + today);
 //console.log(Date.now());
 //console.log(req.body.caption);
-		let postObject = {username:req.session_state.username, //redundant but adding jsut in case
+		let postObject = {username:req.session_state.username, //redundant but adding just in case
 							  realname:req.session_state.realname,
 							  date:today,
 							  timestamp:Date.now(),
