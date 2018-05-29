@@ -2,14 +2,21 @@
 var express = require("express");
 var router = express.Router();
 var path = require("path");
-var myDatabase = require('./myDatabase');
+var myDatabase = require('./mongoDatabase');
 var clientSessions = require('client-sessions');
 var formidable = require('formidable');
 var fs = require('fs');
 var passport = require("passport");
 var db = new myDatabase();
-
+var User = require("./models/User.js");
 var captionText;
+
+router.use(function(req, res, next) {
+  res.locals.currentUserjy = req.user;
+  res.locals.errors = req.flash("error");
+  res.locals.infos = req.flash("info");
+  next();
+});
 
 router.get("/signup",function(req,res){
 
@@ -21,27 +28,21 @@ router.get("/",function(req,res){
 	res.sendFile(__dirname + "/public/views/login.html");
 });
 
-router.get("/getuserinfo",function(req,res){
-  //console.log("get user info");
-	//console.log("req query name : " + req.query.name);
-	//console.log(db.getObjectWithUsername(req.query.name));
-	res.json(db.getObjectWithUsername(req.query.name));
-})
-
 router.post('/follow', function(req,res){
-	//console.log("FOLLOW ATTEMPTED");
-	//console.log(req.body.localuser.username);
-	//console.log(req.body.otheruser);
-	var newObj = db.addFriendToUser(req.body.localuser.username,req.body.otheruser);
+	console.log("FOLLOW ATTEMPTED");
+	console.log(req.body.localuser.username);
+	console.log(req.body.otheruser);
+	var newObj = db.addFriend(res,{username:req.body.localuser.username,
+                                otherUsername:req.body.otheruser});
 	//console.log(newObj);
 });
 router.post('/unfollow', function(req,res){
-	//remove friend
-	var newObjj = db.removeFriend(req.body.localuser.username,req.body.otheruser );
+	var newObjj = db.removeFriend(res,{username:req.body.localuser.username,
+                                otherUsername:req.body.otheruser});
 });
 router.get('/checkFollow',function(req,res){
 	var toset = false;
-	var friendlist = db.getAllFriendsofUser(req.query.localuser.username);
+	var friendlist = db.getAllFriendsofUser(res,req.query.localuser.username);
 	for (let i=0;i<friendlist.length;i++) {
 		if (friendlist[i] && friendlist[i].username == req.query.otheruser.username) {
 			toset = true;
@@ -55,11 +56,19 @@ router.get("/login",function(req,res){
 });
 
 router.get("/userList",function(req,res){
-	res.json(db.getAllUsernames());
+  User.find({},function(err, user) {
+
+		if (err) { return next(err); }
+
+		if (user)
+			res.json(user);
+
+	});
+
 });
 
 router.get("/followerPosts",function(req,res){
-	res.json(db.getAllPostsWithUsername('a'));
+	db.getAllPosts(res);
 });
 
 router.post("/getUserProfile",function(req,res){
@@ -68,16 +77,16 @@ router.post("/getUserProfile",function(req,res){
 });
 
 router.get("/logout",function(req,res){
-	req.session_state.reset();
+	req.user.reset();
 	res.json({redirect:"/login"});
 });
 
 
 router.get("/session",function(req,res){
-//add or modify.  Look at req.session_state.??? to check if a session is active.
+//add or modify.  Look at req.user.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
 //                else send back to the client login.html.
-		if(req.session_state.username)
+		if(req.user.username)
 		{
 			res.sendFile(__dirname + "/public/views/session.html");
 		}
@@ -86,17 +95,47 @@ router.get("/session",function(req,res){
 });
 
 router.get("/userInfo",function(req,res){
-//add or modify.  Look at req.session_state.??? to check if a session is active.
-//                If session is active then send back to client a json object
-//                   with the user data.
-//                else send back a json object that is null.
-if(req.session_state.username)
-{
-	res.json(db.getObjectWithUsername(req.session_state.username));
-}
-else
-		res.json(null);
+if (req.isAuthenticated()) {
 
+  User.find({username:req.user.username},function(err, user) {
+
+		if (err) { return next(err); }
+
+		if (user)
+    console.log(user);
+			res.json(user);
+
+	});
+
+	}
+	else {
+		res.json(null);
+	}
+});
+router.get("/userPost",function(req,res){
+if (req.isAuthenticated()) {
+  db.getAllPostsWithUsername(res,req.user.username);
+	}
+	else {
+		res.json(null);
+	}
+});
+router.post("/deleteAccount",function(req,res){
+if (req.isAuthenticated()) {
+  User.findOneAndRemove({username:req.body.username},function(error,removed) {
+			if (error) {
+        console.log('error');
+					 res.json(null);
+			}
+      req.session.destroy();
+      res.json({redirect:"/login"});
+	});
+
+
+	}
+	else {
+		res.json(null);
+	}
 });
 router.get("/successroot", function(req, res) {
 console.log("get successroot");
@@ -110,12 +149,12 @@ console.log("get failroot");
 
 router.get("/successsignup", function(req, res) {
 console.log("get successsignup");
-	res.json({redirect:"/session"});
+		res.sendFile(__dirname + "/public/views/login.html");
 });
 
 router.get("/failsignup", function(req, res) {
 console.log("get failsignup");
-	res.json({redirect:"/login"});
+		res.sendFile(__dirname + "/public/views/login.html");
 });
 
 router.get("/successlogin", function(req, res) {
@@ -129,84 +168,52 @@ console.log("get faillogin");
 });
 
 router.post('/signup', function(req, res){
-//add or modify.  Check if a valid signup.  If the signup is valid,
-//                  add user and password info to userInfo array.
-//                  Give req.session_state.??? a valid value.
-//                  Send back a json object of {redirect:"/session"}.
-//                else send back a json object that is null.
-let usernames = db.getAllUsernames();
-for (let i=0;i<usernames.length;i++) {
-	if (usernames[i] == req.body.username) {
-		res.json(null);
-	}
-}
-console.log("signup");
-if (req.body.username == ""
- || req.body.password == "") {
-		res.json(null);
-		return;
-}
-else{
-	var signupDate = new Date();
-	db.addObject({username:req.body.username,
-								password:req.body.password,
-								realname:req.body.realname,
-								age:req.body.age,
-								sd:signupDate,
-							  postObjects:[],
-								friendList:[],
-								userMsgHist : []
-						 		});
-	req.session_state.username = req.body.username;
-	req.session_state.password = req.body.password;
-	req.session_state.realname = req.body.realname;
-	req.session_state.age = req.body.age;
-	console.log(db.getObjectWithUsername(req.body.username));
-	res.json({redirect:"/login"});
-}
-});
+			console.log("pre signup");
+	console.log("post signup");
+		var age = req.body.age;
+	   var sd	= new Date();
+  	var realname = req.body.realname;
+	  var username = req.body.username;
+	  var password = req.body.password;
+    console.log(age);
+    console.log(realname);
+	  User.findOne({ username: username }, function(err, user) {
+
+	    if (err) { return next(err); }
+	    if (user) {
+	      req.flash("error", "User already exists");
+	      return res.redirect("/failsignup");
+	    }
+	console.log("post signup1");
+
+	    var newUser = new User({
+	      username: username,
+	      password: password,
+        realname:realname,
+        age: age,
+        sd: sd
+	    });
+	console.log("post signup2");
+  console.log(newUser);
+	    newUser.save();    //this line has to be called.
+	console.log("post signup done");
+
+	  });
 
 
+	}, passport.authenticate("login", {
+	  successRedirect: "/successsignup",
+	  failureRedirect: "/failsignup",
+	  failureFlash: true
+	}));
 
-router.post('/login', 
 
-	function(req, res){
-	console.log("login")
-	let objs = db.getAllObjects();
-//add or modify.  Determine if the login info is valid.  If the login is valid,
-//                  set req.session_state.??? to a valid value.
-//                  Send back a json object of {redirect:"/session"}.
-//                else send back a json object that is null
+	router.post("/login", passport.authenticate("login", {
+	  successRedirect: "/successlogin",
+	  failureRedirect: "/faillogin",
+	  failureFlash: true
+	}));
 
-		if (req.body.username == "" || req.body.password == "") {
-				res.json(null);
-		return;
-		}
-	else {
-		for(var i = 0; i < objs.length; i++)
-		{
-			console.log(objs[i]);
-
- 				if(req.body.username == objs[i].username)
-				{
-					if(req.body.password == objs[i].password)
-					{
-						req.session_state.username = req.body.username;
-						res.json({redirect:"/session"});
-			  	}
-				}
-		}
-	}
-			res.json(null);
-			//https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client to try to fix the
-			//cmd error resulting from this
-
-/*
-passport.authenticate("login", {
-	successRedirect: "/successlogin",
-  failureRedirect: "/faillogin",
-  failureFlash: true
-})*/});
 router.get("/postPicture",function(req,res){
 	///when posting a picture or comment, in the JSON object, we will need to specify its "type"
 	//and specify its "label"
@@ -224,7 +231,7 @@ router.post("/submitPost",function(req,res){
 	//captionText = req.body.caption;
 	//console.log(captionText);
 
-		res.json({redirect:"../../mainpages/html/feed.html"});
+		res.json({redirect:"./mainpages/html/feed.html"});
 
 
 });
@@ -240,13 +247,13 @@ router.post('/mainpages/html/fileupload', function(req, res){
         if (err) throw err;
 
         	let today = new Date();
-//console.log("fileupload " + files.filetoupload.name);
-//console.log("fileupload " + files.filetoupload);
-//console.log("today is " + today);
-//console.log(Date.now());
-//console.log(req.body.caption);
-		let postObject = {username:req.session_state.username, //redundant but adding just in case
-							  realname:req.session_state.realname,
+console.log("fileupload " + files.filetoupload.name);
+console.log("fileupload " + files.filetoupload);
+console.log("today is " + today);
+console.log(Date.now());
+console.log(fields.caption);
+		let postObject = {username:req.user.username, //redundant but adding just in case
+							  realname:req.user.realname,
 							  date:today,
 							  timestamp:Date.now(),
 							  caption: fields.caption ,
@@ -256,11 +263,8 @@ router.post('/mainpages/html/fileupload', function(req, res){
 								comments: []
 						 		}
 			/////
-			db.postWithUsername(req.session_state.username, postObject);
-			//db.postWithRealname(req.session_state.realname,	postObject);
+			db.createPost(res, postObject);
 
-//console.log(db.getAllPostsWithUsername("a"));
-	    res.sendFile(__dirname + "/public/views/mainpages/html/feed.html");
       });
     });
 });
