@@ -13,9 +13,13 @@ function sessionSuccess(user){
 	$('#name').html("Name: " + user[0].realname);
 	$('#age').html("DOB: " + new Date(user[0].age));
 	$('#datejoined').html("Date Joined: " + user[0].sd);
-/*
+
+
+}
+function sessionSuccess2(user){
+
 	let loc;
-  var userposts = user.postObjects;
+  var userposts = user;
 	userposts.sort(function(a, b) {
 		return b.timestamp - a.timestamp;
 	});
@@ -28,7 +32,7 @@ function sessionSuccess(user){
 	$('#postlist').append(userposts[i].caption);
 	$('#postlist').append("<br><br><br><hr><br><br><br>");
 	}
-*/
+
 	//$('#postlist').append(user.postObjects[0].image);
 
 
@@ -81,6 +85,7 @@ function postClicked()
 						type: "GET",
 						success: function(data){
 						console.log('get users success');
+						console.log(data);
 						if (!data)
 								alert("No Users");
 						else
@@ -90,7 +95,7 @@ function postClicked()
 									user = data[j];
 									console.log(data[j]);
 										$("#userList").append("<button> <a href='javaScript:getUserProfile()';>" +
-										 											data[j] + "</a></button>");
+										 											data[j].username + "</a></button>");
 								}
 						}
 
@@ -124,6 +129,7 @@ $(document).ready(function(){
 	}
 
 	$.get('/userInfo',null,sessionSuccess);
+		$.get('/userPost',null,sessionSuccess2);
 
 //add or modify.  Do a get request on /userInfo to get user session data
 //                about the currently logged in user.  Use that data to

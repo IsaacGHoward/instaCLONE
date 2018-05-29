@@ -32,6 +32,29 @@ mongoDatabase.prototype.addFriend = function(res,friendObj) {
 			 res.json(info);
 	});
 }
+
+mongoDatabase.prototype.checkIfFriend = function(res,friendObj) {
+	Team.find(friendObj,function(error,info) {
+			if (error) {
+					res.json (false);
+			}
+			else if (info == null) {
+					res.json (false);
+			}
+
+				res.json(true);
+
+	 });
+
+}
+mongoDatabase.prototype.removeFriend = function(res,friendObj) {
+	Team.remove(friendObj,function(error,removed) {
+			if (error) {
+					 res.json(null);
+			}
+			 res.json(removed.result);
+	});
+}
 /////------------------------------------------------------------------------------------------------
 mongoDatabase.prototype.getAllPosts = function(res) {
 	Post.find({},function(error,info) {

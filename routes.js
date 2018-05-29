@@ -32,23 +32,19 @@ router.post('/follow', function(req,res){
 	console.log("FOLLOW ATTEMPTED");
 	console.log(req.body.localuser.username);
 	console.log(req.body.otheruser);
-	var newObj = db.addFriend(res,{username:req.body.localuser.username,
+	var newObj = db.addFriend(res,{username:req.user.username,
                                 otherUsername:req.body.otheruser});
 	//console.log(newObj);
 });
 router.post('/unfollow', function(req,res){
-	var newObjj = db.removeFriend(res,{username:req.body.localuser.username,
+	var newObjj = db.removeFriend(res,{username:req.user.username,
                                 otherUsername:req.body.otheruser});
 });
 router.get('/checkFollow',function(req,res){
-	var toset = false;
-	var friendlist = db.getAllFriendsofUser(res,req.query.localuser.username);
-	for (let i=0;i<friendlist.length;i++) {
-		if (friendlist[i] && friendlist[i].username == req.query.otheruser.username) {
-			toset = true;
-		}
-	}
-	res.json(toset);
+
+	var friendlist = db.checkIfFriend(res,{username:req.user.username,
+                                        otherUsername:req.query.otheruser});
+
 });
 
 router.get("/login",function(req,res){

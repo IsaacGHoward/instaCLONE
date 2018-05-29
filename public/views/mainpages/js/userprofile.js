@@ -60,7 +60,7 @@ function followResult(result){
 $(document).ready(function(){
 
 	$("#addfriend").click( function( event ) {
-				$.get('/checkFollow',{'localuser' : loggeduser , 'otheruser' : user},followResult);
+				$.get('/checkFollow',{'localuser' : loggeduser.username , 'otheruser' : user.username},followResult);
 				console.log(loggeduser.username + ' has followed ' + user.username);
 				//getUsers();
 				return false;
