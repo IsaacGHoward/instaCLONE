@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- add or modify.  Change index to ident.  -->
+
+
+<!-- check this for todo https://jsfiddle.net/yyx990803/4dr2fLb7/?utm_source=website&utm_medium=embed&utm_campaign=4dr2fLb7-->
+<html>
+  <head>
+    <title>Profile</title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+
+  <body>
+
+
+
+
+    <div class="topnav" style="text-align:center;font-size:17px;">
+
+         <a href="../mainpages/html/feed.html">Feed</a>
+         <a href="../mainpages/html/search.html">Weather</a>
+         <a class="active" href="">Profile</a>
+      </div>
+    <div id="profiledesc" style="text-align:center;font-size:17px;">
+    	<h3 id = "username">Usernames's Profile</h3>
+       <div id = "name">Name:</div>
+       <div id = "datejoined">Date Joined:</div>
+       <div id = "age">Date of Birth:</div>
+       <br>
+       <button id = "newPost" onclick="location.href='../mainpages/html/createPost.html';">NEW POST</button>
+    </div>
+
+
+  	<h3 style="text-align:center;font-size:17px;">Posts: </h3>
+    <ul style="text-align:center" id="postlist"></ul>
+
+
+    <button id = "allUsers" style="text-align:center;font-size:17px;">GET USERS</button>
+    <h3 style="text-align:center;font-size:17px;">Users: </h3>
+    <ul id="userList"></ul>
+    <br>
+    <!--<input type="text" placeholder="User search" id='usersearch'></input>-->
+    <form action="public\views\mainpages\html\userprofile.html">
+      <input name="username" placeholder="User search"/>
+      <input type="submit" value="Go To User">
+    </form>
+
+  <ul id="list"></ul>
+
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <section class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <input class="new-todo"
+      autofocus autocomplete="off"
+      placeholder="What needs to be done?"
+      v-model="newTodo"
+      @keyup.enter="addTodo">
+  </header>
+  <section class="main" v-show="todos.length" v-cloak>
+    <input class="toggle-all" type="checkbox" v-model="allDone">
+    <ul class="todo-list">
+      <li v-for="todo in filteredTodos"
+        class="todo"
+        :key="todo.id"
+        :class="{ completed: todo.completed, editing: todo == editedTodo }">
+        <div class="view">
+          <input class="toggle" type="checkbox" v-model="todo.completed">
+          <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+          <button class="destroy" @click="removeTodo(todo)"></button>
+        </div>
+        <input class="edit" type="text"
+          v-model="todo.title"
+          v-todo-focus="todo == editedTodo"
+          @blur="doneEdit(todo)"
+          @keyup.enter="doneEdit(todo)"
+          @keyup.esc="cancelEdit(todo)">
+      </li>
+    </ul>
+  </section>
+  <footer class="footer" v-show="todos.length" v-cloak>
+    <span class="todo-count">
+      <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
+    </span>
+    <ul class="filters">
+      <li><a href="#/all" :class="{ selected: visibility == 'all' }">All</a></li>
+      <li><a href="#/active" :class="{ selected: visibility == 'active' }">Active</a></li>
+      <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a></li>
+    </ul>
+    <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+      Clear completed
+    </button>
+  </footer>
+</section>
+<footer class="info">
+  <p>Double-click to edit a todo</p>
+  
+</footer>
+
+
+
+	<script src="js/session.js"></script>
+
+  </body>
+</html>
