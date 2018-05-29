@@ -8,11 +8,12 @@ function logoutClicked(){
 }
 
 function sessionSuccess(user){
-	$('#username').html(user.username+"'s"+" profile");
-	$('#name').html("Name: " + user.realname);
-	$('#age').html("DOB: " + new Date(user.age));
-	$('#datejoined').html("Date Joined: " + user.sd);
-
+	console.log(user[0]);
+	$('#username').html(user[0].username+"'s"+" profile");
+	$('#name').html("Name: " + user[0].realname);
+	$('#age').html("DOB: " + new Date(user[0].age));
+	$('#datejoined').html("Date Joined: " + user[0].sd);
+/*
 	let loc;
   var userposts = user.postObjects;
 	userposts.sort(function(a, b) {
@@ -27,7 +28,7 @@ function sessionSuccess(user){
 	$('#postlist').append(userposts[i].caption);
 	$('#postlist').append("<br><br><br><hr><br><br><br>");
 	}
-
+*/
 	//$('#postlist').append(user.postObjects[0].image);
 
 
@@ -300,4 +301,3 @@ onHashChange()
 
 // mount
 app.$mount('.todoapp')
-

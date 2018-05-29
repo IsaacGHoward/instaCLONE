@@ -86,7 +86,7 @@ router.get("/session",function(req,res){
 //add or modify.  Look at req.user.??? to check if a session is active.
 //                If session is active then send back to the client session.html.
 //                else send back to the client login.html.
-		if(req.user.username)
+		if(req.isAuthenticated())
 		{
 			res.sendFile(__dirname + "/public/views/session.html");
 		}
@@ -95,6 +95,7 @@ router.get("/session",function(req,res){
 });
 
 router.get("/userInfo",function(req,res){
+  console.log('in user info');
 if (req.isAuthenticated()) {
 
   User.find({username:req.user.username},function(err, user) {
@@ -159,6 +160,7 @@ console.log("get failsignup");
 
 router.get("/successlogin", function(req, res) {
 console.log("get successlogin");
+console.log(req.user);
 	res.json({redirect:"/session"});
 });
 router.get("/faillogin", function(req, res) {

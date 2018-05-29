@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var Friend = require("./models/Friend.js");
 var Post = require("./models/Post.js");
-let myDatabase = function() {
+let mongoDatabase = function() {
 	this.infoList = [];
 }
 
-myDatabase.prototype.getArraySize = function() {
+mongoDatabase.prototype.getArraySize = function() {
 	return this.infoList.length;
 }
 
-myDatabase.prototype.getAllFriends = function(res) {
+mongoDatabase.prototype.getAllFriends = function(res) {
 	Friend.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -22,7 +22,7 @@ myDatabase.prototype.getAllFriends = function(res) {
 		}
 	});
 }
-myDatabase.prototype.addFriend = function(res,friendObj) {
+mongoDatabase.prototype.addFriend = function(res,friendObj) {
 	console.log("in database");
 	Friend.create(friendObj,function(error,info) {
 			if (error) {
@@ -33,7 +33,7 @@ myDatabase.prototype.addFriend = function(res,friendObj) {
 	});
 }
 /////------------------------------------------------------------------------------------------------
-myDatabase.prototype.getAllPosts = function(res) {
+mongoDatabase.prototype.getAllPosts = function(res) {
 	Post.find({},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -42,7 +42,7 @@ myDatabase.prototype.getAllPosts = function(res) {
 		}
 	});
 }
-myDatabase.prototype.getAllPostsWithUsername = function(res,username) {
+mongoDatabase.prototype.getAllPostsWithUsername = function(res,username) {
 	Post.find({username:username},function(error,info) {
 		if (error) {
 			res.json(null);
@@ -51,7 +51,7 @@ myDatabase.prototype.getAllPostsWithUsername = function(res,username) {
 	});
 }
 
-myDatabase.prototype.getObjectWithID = function(res,ident) {
+mongoDatabase.prototype.getObjectWithID = function(res,ident) {
 	Team.find({ident:ident},function(error,info) {
 			if (error) {
 					res.json (null);
@@ -71,7 +71,7 @@ myDatabase.prototype.getObjectWithID = function(res,ident) {
 
 }
 
-myDatabase.prototype.createPost = function(res,postObj) {
+mongoDatabase.prototype.createPost = function(res,postObj) {
 	console.log("in database");
 	Post.create(postObj,function(error,info) {
 			if (error) {
@@ -84,7 +84,7 @@ myDatabase.prototype.createPost = function(res,postObj) {
 
 
 //add or modify.  Complete changeObject function.
-myDatabase.prototype.changeObject = function(res,username,name) {
+mongoDatabase.prototype.changeObject = function(res,username,name) {
 	Team.findOneAndUpdate({username:username},{name:name},function(error,info) {
 	          if (error) {
 	               res.json(null);
@@ -98,7 +98,7 @@ myDatabase.prototype.changeObject = function(res,username,name) {
 
 
 //add or modify.  Complete deleteObjectWithID function.
-myDatabase.prototype.deleteObjectWithID = function(res,ident) {
+mongoDatabase.prototype.deleteObjectWithID = function(res,ident) {
 	Team.remove({username:username},function(error,removed) {
 			if (error) {
 					 res.json(null);

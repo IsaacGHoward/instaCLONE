@@ -1,7 +1,7 @@
 
 var mongoose = require("mongoose");
 
-var friendSchema =  mongoose.Schema({
+var postSchema =  mongoose.Schema({
 	username: {
 		required: true,
 		unique: false,
@@ -17,7 +17,8 @@ var friendSchema =  mongoose.Schema({
 	},
 	timestamp: {
 		required: true,
-		unique: false
+		unique: false,
+		type:String
 	},
 	caption: {
 		required: false,
@@ -25,18 +26,19 @@ var friendSchema =  mongoose.Schema({
 		type:String
 	},
 	imageLocation: {
-		required: true
+		required: true,
+		type: String
 	},
 	imageName: {
 		required: true,
-		type:String
+		type: String
 	},
 	image: {
-		required: true
+		required: false
 	},
 	comments: []
 });
 
-var Friend = mongoose.model('Friend', friendSchema);
+var Post = mongoose.model('Post', postSchema);
 
-module.exports = Friend;
+module.exports = Post;
